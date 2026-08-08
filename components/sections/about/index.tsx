@@ -67,7 +67,7 @@ export const AboutSection = ({
   }, [isHovered, totalItems]);
 
   return (
-    <div ref={containerRef} className="relative h-[280vh] w-full">
+    <div ref={containerRef} className="relative h-[320vh] w-full">
       <section
         id="about"
         className="sticky top-20 w-full select-none px-6 py-12 md:px-12 lg:px-20"

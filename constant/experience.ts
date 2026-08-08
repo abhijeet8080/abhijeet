@@ -39,7 +39,7 @@ export const experience: Experience[] = [
       "Deployed the full stack on Azure using Container Apps with independent per-service scaling, Azure PostgreSQL, Azure Redis, Blob Storage for document management, and Azure Communication Services for transactional and follow-up emails.",
     ],
     company: "AEOS Labs",
-    companySite: "#",
+    companySite: "https://labs.aeoscompany.com/",
     technologies: [
       "Next.js",
       "TypeScript",

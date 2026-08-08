@@ -66,8 +66,8 @@ export const profile: Profile = {
   },
 
   curr_location: {
-    city: "Pune",
-    state: "Maharashtra",
+    city: "Bangalore",
+    state: "Karnataka",
   },
 
   about: [

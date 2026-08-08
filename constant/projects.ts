@@ -24,7 +24,8 @@ export const selected_works: Project[] = [
       "Clerk",
     ],
     links: {
-      github: "https://github.com/abhijeet8080",
+      live: "https://rika-silk.vercel.app/",
+      github: "https://github.com/abhijeet8080/rika",
     },
   },
   {
@@ -41,7 +42,7 @@ export const selected_works: Project[] = [
       "Upstash Redis",
     ],
     links: {
-      github: "https://github.com/abhijeet8080",
+      github: "https://github.com/abhijeet8080/Aria-",
     },
   },
   {
@@ -77,7 +78,7 @@ export const selected_works: Project[] = [
       "Voyage AI",
     ],
     links: {
-      github: "https://github.com/abhijeet8080",
+      github: "https://github.com/abhijeet8080/notebooklm",
     },
   },
 ];
@@ -98,7 +99,7 @@ export const works: Project[] = [
       "Docker",
     ],
     links: {
-      github: "https://github.com/abhijeet8080",
+      github: "https://github.com/abhijeet8080/bugbot",
     },
   },
 ];

@@ -4,7 +4,7 @@ import { Mail, MapPin } from "lucide-react";
 import { profile } from "@/constant/profile";
 
 export const ContactInfo = () => {
-  const locationString = `${profile.education.location.city}, India`;
+  const locationString = `${profile.curr_location.city}, India`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationString)}`;
 
   return (
