@@ -1,0 +1,136 @@
+import { create } from "zustand";
+
+export type WindowType = "terminal" | "settings" | "browser" | "project";
+
+export interface AppWindowData {
+  id: string;
+  type: WindowType;
+  title: string;
+  isOpen: boolean;
+  isMinimized: boolean;
+  isMaximized: boolean;
+  isClosing: boolean;
+  zIndex: number;
+  /** Cascade index used to offset newly spawned windows */
+  spawnIndex: number;
+  props?: Record<string, unknown>;
+}
+
+interface WindowStore {
+  windows: Record<string, AppWindowData>;
+  topZIndex: number;
+  activeWindowId: string | null;
+  spawnCount: number;
+  openWindow: (
+    id: string,
+    type: WindowType,
+    title: string,
+    props?: Record<string, unknown>
+  ) => void;
+  closeWindow: (id: string) => void;
+  destroyWindow: (id: string) => void;
+  minimizeWindow: (id: string) => void;
+  maximizeWindow: (id: string) => void;
+  focusWindow: (id: string) => void;
+}
+
+export const useWindowStore = create<WindowStore>((set, get) => ({
+  windows: {},
+  topZIndex: 100,
+  activeWindowId: null,
+  spawnCount: 0,
+
+  openWindow: (id, type, title, props) => {
+    const { windows, topZIndex, spawnCount } = get();
+    const newZIndex = topZIndex + 1;
+
+    set({
+      windows: {
+        ...windows,
+        [id]: {
+          ...windows[id], // retain existing state if it was minimized
+          id,
+          type,
+          title,
+          isOpen: true,
+          isMinimized: false,
+          isMaximized: windows[id]?.isMaximized || false,
+          isClosing: false,
+          zIndex: newZIndex,
+          spawnIndex: windows[id]?.spawnIndex ?? spawnCount % 6,
+          props,
+        },
+      },
+      topZIndex: newZIndex,
+      activeWindowId: id,
+      spawnCount: spawnCount + 1,
+    });
+  },
+
+  closeWindow: (id) => {
+    // Mark as closing so AppWindow can run its exit animation
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [id]: { ...state.windows[id], isClosing: true },
+      },
+      activeWindowId: state.activeWindowId === id ? null : state.activeWindowId,
+    }));
+  },
+
+  destroyWindow: (id) => {
+    // Called by AppWindow after the exit animation completes
+    set((state) => {
+      const newWindows = { ...state.windows };
+      delete newWindows[id];
+      return { windows: newWindows };
+    });
+  },
+
+  minimizeWindow: (id) => {
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [id]: { ...state.windows[id], isMinimized: true },
+      },
+      activeWindowId: state.activeWindowId === id ? null : state.activeWindowId,
+    }));
+  },
+
+  maximizeWindow: (id) => {
+    set((state) => {
+      const win = state.windows[id];
+      if (!win) return state;
+      const newZIndex = state.topZIndex + 1;
+
+      return {
+        windows: {
+          ...state.windows,
+          [id]: {
+            ...win,
+            isMaximized: !win.isMaximized,
+            zIndex: newZIndex,
+          },
+        },
+        topZIndex: newZIndex,
+        activeWindowId: id,
+      };
+    });
+  },
+
+  focusWindow: (id) => {
+    const win = get().windows[id];
+    if (!win) return;
+    if (get().activeWindowId === id && !win.isMinimized) return; // Already focused
+
+    const newZIndex = get().topZIndex + 1;
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [id]: { ...state.windows[id], zIndex: newZIndex, isMinimized: false },
+      },
+      topZIndex: newZIndex,
+      activeWindowId: id,
+    }));
+  },
+}));
