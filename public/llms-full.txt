@@ -1,0 +1,107 @@
+# Abhijeet Kadam — Full Stack AI Engineer (llms-full)
+
+> Complete profile and site content for LLM agents and answer engines. For the concise version, see /llms.txt.
+
+## Identity
+
+- Full name: Abhijeet Kadam
+- Role: Full Stack AI Engineer at AEOS Labs
+- Location: Bangalore, Karnataka, India
+- Email: abhijeetkadam.dev@gmail.com
+- GitHub: https://github.com/abhijeet8080 (handle: abhijeet8080)
+- LinkedIn: https://linkedin.com/in/abhijeetkadam21
+- Site brand: "abhi os" — a macOS-inspired interactive portfolio
+
+## Summary
+
+Abhijeet Kadam is a full stack AI engineer who ships production systems — voice
+agents that answer phone calls in 30+ languages, RAG pipelines that cite their
+sources, and an agent SDK written from scratch and published on npm. He owns the
+hard parts: real-time audio pipelines, webhook-driven syncs, background workers,
+and reliability work — circuit breakers, retries, dead-letter queues.
+
+At AEOS Labs he builds AI-powered procurement — turning 48-hour RFQ quote
+turnarounds into minutes by parsing vendor emails and documents into structured
+quote line items.
+
+Guiding quote: "No claim without a path back to the source."
+
+## Experience
+
+### Full Stack AI Engineer — AEOS Labs (September 2025 — Present)
+
+- Engineered and shipped a full-stack B2B procurement platform end to end: Next.js frontend (Shadcn/ui, Redux Toolkit, TanStack Query) with marketplace, RFQ, and vendor management workflows.
+- Reduced RFQ quote turnaround from 48+ hours to minutes via an AI pipeline that parses inbound vendor emails and attachments (PDF, DOCX, Excel) into structured quote line items.
+- Architected a TypeScript monorepo with an HTTP API server and an async background job worker, with bidirectional sync to Microsoft Business Central and real-time email ingestion via Microsoft Graph webhooks.
+- Production-grade resilience: circuit breakers on external calls, exponential backoff with dead-letter queues, cluster-aware Redis rate limiting, multi-strategy vendor sourcing orchestration.
+- Deployed on Azure Container Apps with per-service scaling, Azure PostgreSQL, Azure Redis, Blob Storage, and Azure Communication Services.
+
+Technologies: Next.js, TypeScript, Node.js, Azure, PostgreSQL, Redis, BullMQ, Microsoft Graph API, Docker.
+
+## Education
+
+B. Tech, Electronics and Telecommunications — Vishwakarma Institute of
+Information Technology (VIIT), Pune, Maharashtra — 2021–2025.
+
+## Skills Matrix
+
+- Languages & Frameworks: TypeScript, JavaScript, Java, Node.js, Express.js, Hono, Next.js, React, Tailwind CSS
+- AI, Voice & LLMs: OpenAI, Gemini, DeepSeek, Deepgram, Twilio, Vercel AI SDK, RAG Pipelines, Zod
+- Databases & State: PostgreSQL, MongoDB, Redis, Qdrant, Supabase, Prisma, BullMQ, Redux Toolkit
+- Infrastructure & DevOps: Docker, GitHub Actions, Azure, Git, GitHub
+
+## Projects
+
+### Rika — AI meeting notetaker
+Joins Zoom, Google Meet, and Microsoft Teams calls via Recall.ai — capturing
+speaker-attributed transcripts and answering questions with cited RAG, both live
+in-call through @Rika mentions and after the meeting in a web chat.
+Stack: Next.js, TypeScript, Recall.ai, Qdrant, Drizzle, Neon, DeepSeek, Clerk.
+Live: https://rika-silk.vercel.app/ · GitHub: https://github.com/abhijeet8080/rika
+
+### ARIA — multilingual AI voice agent
+Handles inbound phone calls end-to-end — auto-detecting the caller's language
+across 30+ languages, booking appointments, and supporting real-time barge-in at
+sub-800ms latency via a native audio-to-audio pipeline.
+Stack: TypeScript, Hono, Twilio, Gemini Live, Deepgram, Supabase, Upstash Redis.
+GitHub: https://github.com/abhijeet8080/Aria-
+
+### redai — TypeScript agent SDK
+A from-scratch, provider-agnostic agent SDK published on npm — hand-written
+agent loop, tool calling, structured output, guardrails, multi-agent handoffs,
+sessions, streaming, and tracing. No agent framework underneath.
+Stack: TypeScript, Zod, OpenAI, Anthropic, Gemini, tsup.
+npm: https://www.npmjs.com/package/@abhijeetkadam/redai · GitHub: https://github.com/abhijeet8080/redai
+
+### NotebookLM — research assistant with citations
+Create notebooks, ingest PDFs, DOCX, websites, YouTube videos, and transcripts,
+then ask natural-language questions with streamed answers and inline citations
+that open the exact source passage.
+Stack: Next.js, Fastify, Clerk, Neon, Qdrant, BullMQ, DeepSeek, Voyage AI.
+GitHub: https://github.com/abhijeet8080/notebooklm
+
+### Bugbot — automated PR review bot
+Webhook-driven GitHub App: a server enqueues review jobs and a background worker
+fetches PR diffs, runs a token-bounded LLM analysis pipeline, and posts inline
+review comments directly on the PR.
+Stack: TypeScript, Hono, BullMQ, Prisma, PostgreSQL, GitHub App, OpenAI, Docker.
+GitHub: https://github.com/abhijeet8080/bugbot
+
+## Site Map
+
+- https://abhijeetkadam.vercel.app/ — Home (abhi os desktop experience)
+- https://abhijeetkadam.vercel.app/projects — Projects & selected works
+- https://abhijeetkadam.vercel.app/projects/rika — Rika case study
+- https://abhijeetkadam.vercel.app/projects/aria — ARIA case study
+- https://abhijeetkadam.vercel.app/projects/redai — redai case study
+- https://abhijeetkadam.vercel.app/projects/notebooklm — NotebookLM case study
+- https://abhijeetkadam.vercel.app/projects/bugbot — Bugbot case study
+- https://abhijeetkadam.vercel.app/resume — Resume & CV
+- https://abhijeetkadam.vercel.app/blog — Blog (coming soon)
+
+## Keywords
+
+Abhijeet Kadam, Full Stack AI Engineer, AI Engineer, Software Engineer, Voice AI,
+Voice Agents, RAG, Retrieval Augmented Generation, LLM Applications, AI Agents,
+Agent SDK, TypeScript, JavaScript, Node.js, Next.js, React, PostgreSQL, Redis,
+Qdrant, Docker, Azure, Bangalore, India.

@@ -6,12 +6,20 @@ import { useCodingStats } from "@/hooks/useCodingStats";
 export const CodingStatsSlide = () => {
   const { github, loading } = useCodingStats();
 
-  const stats = [
-    { label: "Repos", value: github?.repos ?? 0 },
-    { label: "Commits", value: github?.commits ?? "—" },
-    { label: "Last 12 Mo", value: github?.commitsRecent ?? "—" },
-    { label: "Languages", value: github?.languages ?? "—" },
-  ];
+  const stats =
+    github && github.totalContributions !== null
+      ? [
+          { label: "Repos", value: github.repos },
+          { label: "Contributions", value: github.totalContributions },
+          { label: "Current Streak", value: github.currentStreak ?? "—" },
+          { label: "Longest Streak", value: github.longestStreak ?? "—" },
+        ]
+      : [
+          { label: "Repos", value: github?.repos ?? 0 },
+          { label: "Commits", value: github?.commits ?? "—" },
+          { label: "Last 12 Mo", value: github?.commitsRecent ?? "—" },
+          { label: "Languages", value: github?.languages ?? "—" },
+        ];
 
   return (
     <motion.div

@@ -59,12 +59,20 @@ const CalendarWidget = () => {
 
 const GithubWidget = () => {
   const { github, loading } = useCodingStats();
-  const stats = [
-    { label: "Repos", value: github?.repos ?? 0 },
-    { label: "Commits", value: github?.commits ?? "–" },
-    { label: "12 Mo", value: github?.commitsRecent ?? "–" },
-    { label: "Langs", value: github?.languages ?? "–" },
-  ];
+  const stats =
+    github && github.totalContributions !== null
+      ? [
+          { label: "Repos", value: github.repos },
+          { label: "Contribs", value: github.totalContributions },
+          { label: "Streak", value: github.currentStreak ?? "–" },
+          { label: "Best", value: github.longestStreak ?? "–" },
+        ]
+      : [
+          { label: "Repos", value: github?.repos ?? 0 },
+          { label: "Commits", value: github?.commits ?? "–" },
+          { label: "12 Mo", value: github?.commitsRecent ?? "–" },
+          { label: "Langs", value: github?.languages ?? "–" },
+        ];
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-xl">

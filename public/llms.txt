@@ -1,0 +1,33 @@
+# Abhijeet Kadam — Full Stack AI Engineer
+
+> Portfolio of Abhijeet Kadam, a Full Stack AI Engineer based in Bangalore, India, building production AI systems: voice agents, RAG pipelines, agent SDKs, and full-stack applications. The site itself is "abhi os", a macOS-inspired desktop experience built with Next.js, TypeScript, and Tailwind CSS.
+
+Abhijeet currently works at AEOS Labs, building AI-powered procurement — parsing vendor emails and documents into structured quote line items, cutting RFQ quote turnaround from 48+ hours to minutes.
+
+## Skills
+
+- Languages & Frameworks: TypeScript, JavaScript, Java, Node.js, Express.js, Hono, Next.js, React, Tailwind CSS
+- AI, Voice & LLMs: OpenAI, Gemini, DeepSeek, Deepgram, Twilio, Vercel AI SDK, RAG Pipelines, Zod
+- Databases & State: PostgreSQL, MongoDB, Redis, Qdrant, Supabase, Prisma, BullMQ, Redux Toolkit
+- Infrastructure & DevOps: Docker, GitHub Actions, Azure, Git, GitHub
+
+## Featured Projects
+
+- [Rika](https://github.com/abhijeet8080/rika): AI meeting notetaker for Zoom/Meet/Teams with speaker-attributed transcripts and cited RAG Q&A
+- [ARIA](https://github.com/abhijeet8080/Aria-): Multilingual AI voice agent handling inbound phone calls in 30+ languages at sub-800ms latency
+- [redai](https://www.npmjs.com/package/@abhijeetkadam/redai): From-scratch, provider-agnostic TypeScript agent SDK published on npm
+- [NotebookLM](https://github.com/abhijeet8080/notebooklm): Research assistant with inline citations over PDFs, websites, and YouTube videos
+- [Bugbot](https://github.com/abhijeet8080/bugbot): Automated GitHub pull-request review bot
+
+## Pages
+
+- [Home](https://abhijeetkadam.vercel.app/): abhi os — interactive macOS-style portfolio desktop
+- [Projects](https://abhijeetkadam.vercel.app/projects): Case studies of production AI systems
+- [Resume](https://abhijeetkadam.vercel.app/resume): Experience, education, and skills
+- [Blog](https://abhijeetkadam.vercel.app/blog): Writing on AI engineering (coming soon)
+
+## Contact
+
+- Email: abhijeetkadam.dev@gmail.com
+- GitHub: https://github.com/abhijeet8080
+- LinkedIn: https://linkedin.com/in/abhijeetkadam21
