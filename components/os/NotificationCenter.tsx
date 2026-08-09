@@ -60,10 +60,10 @@ const CalendarWidget = () => {
 const GithubWidget = () => {
   const { github, loading } = useCodingStats();
   const stats = [
-    { label: "Repos", value: github?.repos },
-    { label: "Followers", value: github?.followers },
-    { label: "Following", value: github?.following },
-    { label: "Gists", value: github?.gists },
+    { label: "Repos", value: github?.repos ?? 0 },
+    { label: "Commits", value: github?.commits ?? "–" },
+    { label: "12 Mo", value: github?.commitsRecent ?? "–" },
+    { label: "Langs", value: github?.languages ?? "–" },
   ];
 
   return (

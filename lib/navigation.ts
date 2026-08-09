@@ -1,6 +1,7 @@
 "use client";
 
 import type Lenis from "lenis";
+import { usePathname, useRouter } from "next/navigation";
 
 const getLenis = (): Lenis | undefined =>
   typeof window === "undefined"
@@ -45,4 +46,22 @@ export const scrollToY = (y: number, duration = 1.2) => {
   } else {
     window.scrollTo({ top: y, behavior: "smooth" });
   }
+};
+
+/**
+ * Returns a handler that smooth-scrolls (via Lenis) to a homepage section
+ * by id, navigating back to "/" first when on another route (e.g. /blog).
+ */
+export const useSectionNavigation = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  return (id: string) => {
+    if (pathname !== "/") {
+      router.push("/");
+      setTimeout(() => scrollToSection(id), 450);
+    } else {
+      scrollToSection(id);
+    }
+  };
 };

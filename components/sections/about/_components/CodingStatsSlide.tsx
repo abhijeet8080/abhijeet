@@ -6,6 +6,13 @@ import { useCodingStats } from "@/hooks/useCodingStats";
 export const CodingStatsSlide = () => {
   const { github, loading } = useCodingStats();
 
+  const stats = [
+    { label: "Repos", value: github?.repos ?? 0 },
+    { label: "Commits", value: github?.commits ?? "—" },
+    { label: "Last 12 Mo", value: github?.commitsRecent ?? "—" },
+    { label: "Languages", value: github?.languages ?? "—" },
+  ];
+
   return (
     <motion.div
       key="slide-2"
@@ -17,7 +24,7 @@ export const CodingStatsSlide = () => {
     >
       <div className="flex items-center justify-between">
         <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-          // GitHub Metrics
+          {"// GitHub Metrics"}
         </span>
         <span className="font-mono text-xs text-neutral-400">
           @{github?.handle || "abhijeet8080"}
@@ -35,41 +42,19 @@ export const CodingStatsSlide = () => {
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          <div className="flex flex-col p-3 rounded-xl border border-neutral-800 bg-neutral-900/80 backdrop-blur-md">
-            <span className="font-mono text-xl sm:text-2xl font-extrabold text-white">
-              {github?.repos ?? 0}
-            </span>
-            <span className="font-mono text-[10px] uppercase text-neutral-400 mt-1 font-semibold">
-              Repos
-            </span>
-          </div>
-
-          <div className="flex flex-col p-3 rounded-xl border border-neutral-800 bg-neutral-900/80 backdrop-blur-md">
-            <span className="font-mono text-xl sm:text-2xl font-extrabold text-white">
-              {github?.followers ?? 0}
-            </span>
-            <span className="font-mono text-[10px] uppercase text-neutral-400 mt-1 font-semibold">
-              Followers
-            </span>
-          </div>
-
-          <div className="flex flex-col p-3 rounded-xl border border-neutral-800 bg-neutral-900/80 backdrop-blur-md">
-            <span className="font-mono text-xl sm:text-2xl font-extrabold text-white">
-              {github?.following ?? 0}
-            </span>
-            <span className="font-mono text-[10px] uppercase text-neutral-400 mt-1 font-semibold">
-              Following
-            </span>
-          </div>
-
-          <div className="flex flex-col p-3 rounded-xl border border-neutral-800 bg-neutral-900/80 backdrop-blur-md">
-            <span className="font-mono text-xl sm:text-2xl font-extrabold text-white">
-              {github?.gists ?? 0}
-            </span>
-            <span className="font-mono text-[10px] uppercase text-neutral-400 mt-1 font-semibold">
-              Gists
-            </span>
-          </div>
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col p-3 rounded-xl border border-neutral-800 bg-neutral-900/80 backdrop-blur-md"
+            >
+              <span className="font-mono text-xl sm:text-2xl font-extrabold text-white">
+                {stat.value}
+              </span>
+              <span className="font-mono text-[10px] uppercase text-neutral-400 mt-1 font-semibold">
+                {stat.label}
+              </span>
+            </div>
+          ))}
         </div>
       )}
     </motion.div>

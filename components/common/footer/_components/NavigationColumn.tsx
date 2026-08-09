@@ -1,7 +1,9 @@
 "use client";
 
+import { type MouseEvent } from "react";
 import Link from "next/link";
 import { mono } from "@/app/fonts";
+import { useSectionNavigation } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -14,6 +16,20 @@ const NAV_ITEMS = [
 ];
 
 export const NavigationColumn = () => {
+  const goToSection = useSectionNavigation();
+
+  // Intercept in-page section links so they glide through Lenis instead of
+  // the browser's instant hash jump; regular routes (e.g. /blog) keep the
+  // default Next.js navigation.
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const id = href.split("#")[1];
+    if (!id) return;
+    // Let modified clicks (cmd/ctrl/shift/alt) open the link as usual.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    goToSection(id);
+  };
+
   return (
     <div className="w-full flex flex-col justify-start space-y-3">
       <span
@@ -29,6 +45,7 @@ export const NavigationColumn = () => {
           <Link
             key={item.label}
             href={item.href}
+            onClick={(e) => handleNavClick(e, item.href)}
             className="hover:text-foreground hover:underline transition-colors uppercase"
           >
             {item.label}
