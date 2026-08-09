@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import { toast } from "sonner";
+import { usePathname } from "next/navigation";
 
 import {
   AboutIcon,
@@ -178,6 +179,13 @@ const MinimizedThumb = ({
 export const Dock = () => {
   const mouseX = useMotionValue(Infinity);
   const isMobile = useIsMobile();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  /** True while the hero section is on screen (only tracked on home). */
+  const [heroInView, setHeroInView] = useState(true);
+  /** The dock is pinned (always visible) only over the hero — the "desktop".
+      Past the hero it returns to the usual auto-hide behavior. */
+  const pinned = isHome && heroInView;
 
   // `hidden` is only ever changed inside real event handlers (or a store
   // subscription callback below) — never synchronously inside an effect
@@ -214,6 +222,25 @@ export const Dock = () => {
   );
 
   useEffect(() => clearHideTimer, [clearHideTimer]);
+
+  // Watches the hero section: the dock stays pinned while it is on screen
+  // and reverts to auto-hide behavior once you scroll past it.
+  useEffect(() => {
+    if (!isHome) return;
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0.12 }
+    );
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [isHome]);
+
+  // Leaving the hero tucks the dock away (unless the pointer is on it).
+  useEffect(() => {
+    if (!pinned && !isMobile && !hoverRef.current) scheduleHide(300);
+  }, [pinned, isMobile, scheduleHide]);
 
   const { windows, openWindow, focusWindow, minimizeWindow, activeWindowId } =
     useWindowStore();
@@ -252,6 +279,8 @@ export const Dock = () => {
   // down tucks it away for more reading room. Works with Lenis since it
   // still emits native window scroll events.
   useEffect(() => {
+    if (pinned) return; // dock stays visible on the home desktop
+
     let lastY = window.scrollY;
     let ticking = false;
 
@@ -287,7 +316,7 @@ export const Dock = () => {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isMobile, reveal, scheduleHide, clearHideTimer]);
+  }, [isMobile, pinned, reveal, scheduleHide, clearHideTimer]);
 
   const handleActivate = (app: DockApp) => {
     playClick();
@@ -319,8 +348,9 @@ export const Dock = () => {
     <>
       {/* Bottom-edge hot zone: hovering here reveals the dock, independent of
           whether the pointer goes on to enter the dock itself. Skipped on
-          mobile since there's no hover concept — the dock stays visible. */}
-      {!isMobile && (
+          mobile (no hover concept) and on pinned pages like home where the
+          dock is always visible. */}
+      {!isMobile && !pinned && (
         <div
           aria-hidden
           onMouseEnter={reveal}
@@ -332,7 +362,11 @@ export const Dock = () => {
       <motion.div
         data-os-chrome
         initial={{ y: "140%" }}
-        animate={{ y: (isMobile ? scrollHidden : hidden) ? "140%" : "0%" }}
+        animate={{
+          y: (pinned ? false : isMobile ? scrollHidden : hidden)
+            ? "140%"
+            : "0%",
+        }}
         transition={{ type: "spring", stiffness: 380, damping: 34 }}
         className="fixed bottom-2 left-1/2 z-[600] -translate-x-1/2"
       >
@@ -343,7 +377,7 @@ export const Dock = () => {
           }}
           onMouseLeave={() => {
             hoverRef.current = false;
-            scheduleHide();
+            if (!pinned) scheduleHide();
             mouseX.set(Infinity);
           }}
           onMouseMove={(e) => mouseX.set(e.clientX)}

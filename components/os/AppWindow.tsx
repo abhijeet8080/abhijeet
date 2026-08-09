@@ -9,6 +9,7 @@ import {
 import { Minus, Plus, X } from "lucide-react";
 import { useWindowStore, type AppWindowData } from "@/store/windowStore";
 import { playPop } from "@/lib/sounds";
+import { OS_EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface AppWindowProps {
@@ -47,7 +48,7 @@ export const AppWindow = ({
         opacity: 1,
         scale: 1,
         y: 0,
-        transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+        transition: { duration: 0.28, ease: OS_EASE },
       });
     }
   }, [controls]);
@@ -61,7 +62,7 @@ export const AppWindow = ({
           opacity: 0,
           scale: 0.92,
           y: 12,
-          transition: { duration: 0.16, ease: "easeIn" },
+          transition: { duration: 0.2, ease: OS_EASE },
         })
         .then(() => destroyWindow(win.id));
     }
@@ -76,14 +77,14 @@ export const AppWindow = ({
         opacity: 0,
         scale: 0.4,
         y: 320,
-        transition: { duration: 0.25, ease: "easeIn" },
+        transition: { duration: 0.25, ease: OS_EASE },
       });
     } else {
       controls.start({
         opacity: 1,
         scale: 1,
         y: 0,
-        transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
+        transition: { duration: 0.25, ease: OS_EASE },
       });
     }
   }, [win.isMinimized, controls]);
@@ -144,9 +145,10 @@ export const AppWindow = ({
               closeWindow(win.id);
             }}
             onPointerDown={(e) => e.stopPropagation()}
-            className="flex h-3 w-3 items-center justify-center rounded-full bg-[#FF5F57] transition-colors"
+            className="relative flex h-3 w-3 items-center justify-center rounded-full bg-[#FF5F57] transition-colors"
             aria-label="Close"
           >
+            <span className="absolute -inset-2 rounded-full" aria-hidden />
             <X className="h-2 w-2 text-black/60 opacity-0 group-hover:opacity-100" />
           </button>
           <button
@@ -155,9 +157,10 @@ export const AppWindow = ({
               minimizeWindow(win.id);
             }}
             onPointerDown={(e) => e.stopPropagation()}
-            className="flex h-3 w-3 items-center justify-center rounded-full bg-[#FEBC2E] transition-colors"
+            className="relative flex h-3 w-3 items-center justify-center rounded-full bg-[#FEBC2E] transition-colors"
             aria-label="Minimize"
           >
+            <span className="absolute -inset-2 rounded-full" aria-hidden />
             <Minus className="h-2 w-2 text-black/60 opacity-0 group-hover:opacity-100" />
           </button>
           <button
@@ -166,9 +169,10 @@ export const AppWindow = ({
               maximizeWindow(win.id);
             }}
             onPointerDown={(e) => e.stopPropagation()}
-            className="flex h-3 w-3 items-center justify-center rounded-full bg-[#28C840] transition-colors"
+            className="relative flex h-3 w-3 items-center justify-center rounded-full bg-[#28C840] transition-colors"
             aria-label="Zoom"
           >
+            <span className="absolute -inset-2 rounded-full" aria-hidden />
             <Plus className="h-2 w-2 text-black/60 opacity-0 group-hover:opacity-100" />
           </button>
         </div>

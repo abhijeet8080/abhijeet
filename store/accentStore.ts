@@ -1,9 +1,19 @@
 import { create } from "zustand";
-import { DEFAULT_ACCENT, DEFAULT_OS_ACCENT } from "@/constant/wallpapers";
-import type { AccentPair } from "@/lib/dominantColor";
+import {
+  DEFAULT_ACCENT,
+  DEFAULT_OS_ACCENT,
+  DEFAULT_PALETTE,
+} from "@/constant/wallpapers";
+import { paletteFromAccent, type AccentPair } from "@/lib/dominantColor";
 
 interface AccentState extends AccentPair {
-  setAccent: (pair: AccentPair) => void;
+  /**
+   * Wallpaper-matched gradient stops: the wallpaper's own declared colors for
+   * gradient wallpapers, or colors sampled from its pixels for image/video
+   * ones. Falls back to a palette synthesized from the accent hue.
+   */
+  palette: string[];
+  setAccent: (pair: AccentPair, palette?: string[]) => void;
 }
 
 /**
@@ -14,5 +24,7 @@ interface AccentState extends AccentPair {
 export const useAccentStore = create<AccentState>((set) => ({
   accent: DEFAULT_ACCENT,
   osAccent: DEFAULT_OS_ACCENT,
-  setAccent: (pair) => set(pair),
+  palette: DEFAULT_PALETTE,
+  setAccent: (pair, palette) =>
+    set({ ...pair, palette: palette ?? paletteFromAccent(pair.accent) }),
 }));

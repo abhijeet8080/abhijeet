@@ -34,3 +34,15 @@ export const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 };
+
+/** Scrolls to an absolute Y position through Lenis when available. */
+export const scrollToY = (y: number, duration = 1.2) => {
+  if (typeof window === "undefined") return;
+
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(y, { duration });
+  } else {
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+};

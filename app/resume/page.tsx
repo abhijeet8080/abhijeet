@@ -8,7 +8,11 @@ export const metadata: Metadata = constructMetadata(PAGE_SEO.resume);
 
 export default function ResumePage() {
   return (
-    <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 pb-28 pt-16 md:px-12">
+    <main className="relative z-10 min-h-screen">
+      {/* Readability scrim — keeps content legible over any wallpaper */}
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-md" aria-hidden />
+
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col px-6 pb-28 pt-16 md:px-12">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-heading text-3xl font-bold uppercase tracking-wide text-primary sm:text-4xl">
@@ -35,6 +39,7 @@ export default function ResumePage() {
           title={`Resume — ${profile.name.full}`}
           className="h-[78vh] w-full"
         />
+      </div>
       </div>
     </main>
   );

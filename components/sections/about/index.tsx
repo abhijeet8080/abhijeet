@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { profile } from "@/constant";
 import { SectionHeader } from "@/components/common";
+import { scrollToY } from "@/lib/navigation";
 
 import { StatementCard, type SlideItem } from "./_components/StatementCard";
 import { OriginCard } from "./_components/OriginCard";
@@ -25,7 +26,7 @@ interface AboutSectionProps {
 
 export const AboutSection = ({
   slides = DEFAULT_SLIDES,
-  imageSrc = "/images/me.svg",
+  imageSrc = "/images/me.png",
 }: AboutSectionProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -52,7 +53,7 @@ export const AboutSection = ({
     const scrollHeight = rect.height - window.innerHeight;
     const targetScroll =
       scrollTop + (index / totalItems) * Math.max(0, scrollHeight);
-    window.scrollTo({ top: targetScroll, behavior: "smooth" });
+    scrollToY(targetScroll, 1.1);
   };
 
   // Optional subtle auto-rotate timer if stationary and not hovered

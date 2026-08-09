@@ -24,6 +24,7 @@ import { useWindowStore } from "@/store/windowStore";
 import { useSystemStore } from "@/store/systemStore";
 import { scrollToSection } from "@/lib/navigation";
 import { playClick, playPop } from "@/lib/sounds";
+import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { profile, socials } from "@/constant";
 import { cn } from "@/lib/utils";
 
@@ -230,7 +231,7 @@ export const SpotlightSearch = ({ open, onClose }: SpotlightSearchProps) => {
             initial={{ opacity: 0, scale: 0.97, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: -8 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            transition={OS_MENU_TRANSITION}
             className="pointer-events-none absolute inset-x-0 top-[16vh] mx-auto w-[min(600px,92vw)]"
           >
             <div className="pointer-events-auto overflow-hidden rounded-2xl border border-white/10 bg-[#1C1C1E]/85 shadow-2xl backdrop-blur-2xl">

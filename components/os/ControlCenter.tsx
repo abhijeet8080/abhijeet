@@ -18,6 +18,7 @@ import { useMusicStore } from "@/store/musicStore";
 import { PLAYLIST } from "@/constant/music";
 import { TrackCover } from "./NowPlaying";
 import { playClick } from "@/lib/sounds";
+import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface ControlCenterProps {
@@ -180,7 +181,7 @@ export const ControlCenter = ({ open, onClose }: ControlCenterProps) => {
             initial={{ opacity: 0, scale: 0.95, y: -6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            transition={OS_MENU_TRANSITION}
             className="fixed right-2 top-8 z-[10500] w-[min(320px,calc(100vw-16px))] rounded-[18px] border border-white/10 bg-[#28282A]/75 p-2.5 shadow-2xl backdrop-blur-2xl select-none"
           >
             <div className="grid grid-cols-2 gap-2.5">

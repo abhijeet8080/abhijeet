@@ -1,4 +1,6 @@
-import { ComponentPropsWithoutRef } from "react";
+"use client";
+
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -39,6 +41,22 @@ export function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(true);
+
+  // Pauses the infinite CSS animation while the marquee is off-screen, so
+  // off-screen rows don't consume compositor work during scrolling.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "150px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <>
       <style>
@@ -69,10 +87,18 @@ export function Marquee({
 
           .animate-marquee {
             animation: marquee var(--duration) linear infinite;
+            will-change: transform;
           }
 
           .animate-marquee-vertical {
             animation: marquee-vertical var(--duration) linear infinite;
+            will-change: transform;
+          }
+
+          .marquee-offscreen .animate-marquee,
+          .marquee-offscreen .animate-marquee-vertical,
+          .marquee-offscreen .animate-scroll {
+            animation-play-state: paused !important;
           }
 
           .animate-reverse {
@@ -90,6 +116,7 @@ export function Marquee({
         `}
       </style>
       <div
+        ref={rootRef}
         {...props}
         className={cn(
           "group flex gap-(--gap) overflow-hidden p-2 [--duration:40s] [--gap:1rem]",
@@ -97,6 +124,7 @@ export function Marquee({
             "flex-row": !vertical,
             "flex-col": vertical,
             "pause-on-hover": pauseOnHover,
+            "marquee-offscreen": !inView,
           },
           className,
         )}

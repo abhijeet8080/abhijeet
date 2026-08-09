@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "motion/react";
 import { TechBadge } from "@/components/common/tech-badge";
 import { SectionGradiendBg } from "../../../mics/bg/SectionGradiendBg";
@@ -12,6 +13,7 @@ export interface WorkCardProps {
     live?: string;
     github?: string;
   };
+  slug?: string;
   index?: number;
 }
 
@@ -34,6 +36,7 @@ export const WorkCard = ({
   description,
   technologies,
   links,
+  slug,
   index = 0,
 }: WorkCardProps) => {
   const liveUrl = links?.live;
@@ -110,6 +113,20 @@ export const WorkCard = ({
               </span>
 
               <div className="flex items-center gap-4">
+                {slug && (
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href={`/projects/${slug}`}
+                      className="font-mono text-xs font-semibold tracking-wider text-accent uppercase transition-colors hover:underline"
+                    >
+                      Case Study
+                    </Link>
+                  </motion.div>
+                )}
+
                 {liveUrl && (
                   <motion.a
                     whileHover={{ scale: 1.05 }}

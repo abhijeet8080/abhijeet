@@ -1,11 +1,9 @@
 "use client";
 
 import { FaArrowUp } from "react-icons/fa6";
+import { scrollToTop } from "@/lib/navigation";
 
 export const TopBar = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <div className="flex justify-end mb-6">

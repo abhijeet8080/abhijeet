@@ -91,14 +91,21 @@ function buildAccentPair(h: number, s: number): AccentPair {
   };
 }
 
+interface HueBucket {
+  weight: number;
+  h: number;
+  s: number;
+  l: number;
+}
+
 /**
- * Samples an already-loaded <img> or <video> frame on an offscreen canvas and
- * returns the dominant *vivid* hue — weighted toward saturated, mid-lightness
- * pixels so a bright subject wins over dark shadows or blown-out sky/highlights.
+ * Samples an already-loaded <img> or <video> frame on an offscreen canvas into
+ * 10°-wide hue buckets — weighted toward saturated, mid-lightness pixels so a
+ * bright subject wins over dark shadows or blown-out sky/highlights.
  */
-export function extractDominantAccent(
+function sampleHueBuckets(
   source: HTMLImageElement | HTMLVideoElement
-): AccentPair | null {
+): HueBucket[] | null {
   try {
     const size = 48;
     const canvas = document.createElement("canvas");
@@ -109,8 +116,12 @@ export function extractDominantAccent(
     ctx.drawImage(source, 0, 0, size, size);
     const { data } = ctx.getImageData(0, 0, size, size);
 
-    // 10°-wide hue buckets
-    const buckets = Array.from({ length: 36 }, () => ({ weight: 0, h: 0, s: 0 }));
+    const buckets: HueBucket[] = Array.from({ length: 36 }, () => ({
+      weight: 0,
+      h: 0,
+      s: 0,
+      l: 0,
+    }));
 
     for (let i = 0; i < data.length; i += 4) {
       if (data[i + 3] < 200) continue;
@@ -122,15 +133,79 @@ export function extractDominantAccent(
       bucket.weight += weight;
       bucket.h += h * weight;
       bucket.s += s * weight;
+      bucket.l += l * weight;
     }
 
-    const best = buckets.reduce((a, b) => (b.weight > a.weight ? b : a));
-    if (best.weight === 0) return null;
-
-    return buildAccentPair(best.h / best.weight, best.s / best.weight);
+    return buckets;
   } catch {
     return null;
   }
+}
+
+/**
+ * Samples an already-loaded <img> or <video> frame on an offscreen canvas and
+ * returns the dominant *vivid* hue — weighted toward saturated, mid-lightness
+ * pixels so a bright subject wins over dark shadows or blown-out sky/highlights.
+ */
+export function extractDominantAccent(
+  source: HTMLImageElement | HTMLVideoElement
+): AccentPair | null {
+  const buckets = sampleHueBuckets(source);
+  if (!buckets) return null;
+
+  const best = buckets.reduce((a, b) => (b.weight > a.weight ? b : a));
+  if (best.weight === 0) return null;
+
+  return buildAccentPair(best.h / best.weight, best.s / best.weight);
+}
+
+/** Shortest distance between two hues on the 360° wheel. */
+function hueDistance(a: number, b: number): number {
+  const d = Math.abs(a - b) % 360;
+  return d > 180 ? 360 - d : d;
+}
+
+/**
+ * Multi-color palette sampled from the media's own pixels — the top `count`
+ * vivid hue families, preferring hues at least 25° apart so the stops read as
+ * distinct colors. Unlike paletteFromAccent (which synthesizes hue shifts from
+ * a single accent), these colors genuinely occur in the wallpaper, so UI
+ * gradients built from them blend seamlessly with it.
+ */
+export function extractDominantPalette(
+  source: HTMLImageElement | HTMLVideoElement,
+  count = 3
+): string[] | null {
+  const buckets = sampleHueBuckets(source);
+  if (!buckets) return null;
+
+  const sorted = buckets
+    .filter((b) => b.weight > 0)
+    .sort((a, b) => b.weight - a.weight);
+  if (sorted.length === 0) return null;
+
+  const MIN_HUE_SEPARATION = 25;
+  const picked: HueBucket[] = [];
+  for (const bucket of sorted) {
+    if (picked.length >= count) break;
+    const h = bucket.h / bucket.weight;
+    if (picked.every((p) => hueDistance(p.h / p.weight, h) >= MIN_HUE_SEPARATION)) {
+      picked.push(bucket);
+    }
+  }
+  // Not enough well-separated families — top up with the next strongest buckets.
+  for (const bucket of sorted) {
+    if (picked.length >= count) break;
+    if (!picked.includes(bucket)) picked.push(bucket);
+  }
+
+  return picked.map((b) =>
+    hslToHex(
+      b.h / b.weight,
+      clamp(b.s / b.weight, 0.4, 0.85),
+      clamp(b.l / b.weight, 0.45, 0.68)
+    )
+  );
 }
 
 /** Accent pair derived from a gradient wallpaper's declared color stops. */

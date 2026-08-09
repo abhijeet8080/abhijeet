@@ -32,6 +32,17 @@ export const DEFAULT_WALLPAPER_ID = "abhi-dark";
 export const DEFAULT_ACCENT = "hsl(193 85% 66%)";
 export const DEFAULT_OS_ACCENT = "#0A84FF";
 
+/**
+ * Gradient stops of the default wallpaper — used as the initial accent palette
+ * (bento card washes, photo backdrop) before/while the live one is derived.
+ * Kept in sync with the "abhi-dark" entry below.
+ */
+export const DEFAULT_PALETTE = [
+  "hsl(193, 85%, 66%)",
+  "hsl(196, 100%, 83%)",
+  "hsl(195, 100%, 50%)",
+];
+
 export const WALLPAPERS: Wallpaper[] = [
   {
     id: "abhi-dark",

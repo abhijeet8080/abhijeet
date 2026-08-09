@@ -20,6 +20,7 @@ export const WorkSection = () => {
               description={project.description}
               technologies={project.technologies}
               links={project.links}
+              slug={project.slug}
             />
           ))}
         </div>

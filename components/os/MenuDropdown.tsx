@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export interface MenuItem {
@@ -29,7 +30,7 @@ export const MenuDropdown = ({
           initial={{ opacity: 0, scale: 0.96, y: -4 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -4 }}
-          transition={{ duration: 0.12, ease: "easeOut" }}
+          transition={OS_MENU_TRANSITION}
           className={cn(
             "absolute left-0 top-full z-50 mt-1 min-w-60 origin-top-left rounded-lg border border-white/10 bg-[#232326]/90 p-1 shadow-2xl backdrop-blur-2xl",
             className

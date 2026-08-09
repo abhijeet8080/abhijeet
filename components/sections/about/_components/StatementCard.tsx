@@ -40,7 +40,13 @@ export const StatementCard = ({
   const totalSlides = slides.length;
 
   const accent = useAccentStore((s) => s.accent);
-  const gradientColors = useMemo(() => paletteFromAccent(accent), [accent]);
+  const wallpaperPalette = useAccentStore((s) => s.palette);
+  // Prefer the wallpaper's own colors so the card gradient matches the
+  // desktop background; fall back to a palette synthesized from the accent.
+  const gradientColors = useMemo(
+    () => (wallpaperPalette.length ? wallpaperPalette : paletteFromAccent(accent)),
+    [wallpaperPalette, accent]
+  );
 
   return (
     <BentoCard
@@ -56,8 +62,8 @@ export const StatementCard = ({
         </span>
       </div>
 
-      {/* Main Slide Content Area */}
-      <div className="relative py-2 flex-1 flex flex-col justify-center min-h-35">
+      {/* Main Slide Content Area — fixed height so the card never resizes between slides */}
+      <div className="relative flex h-44 flex-col justify-center py-2 sm:h-48">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}

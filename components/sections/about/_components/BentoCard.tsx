@@ -37,11 +37,18 @@ export const BentoCard = ({
         className,
       )}
     >
-      {/* Top Gradient Background Accent if provided */}
+      {/* Diagonal Gradient Background Accent if provided — runs from the
+          top-left corner down to the bottom-right, fading into the card
+          surface rather than sitting flat across the top. */}
       {gradientColors && (
-        <div className="absolute top-0 left-0 right-0 h-32 w-full overflow-hidden opacity-30 pointer-events-none group-hover:opacity-40 transition-opacity">
+        <div
+          className="absolute inset-0 w-full h-full overflow-hidden opacity-30 pointer-events-none group-hover:opacity-45 transition-opacity"
+          style={{
+            maskImage: "linear-gradient(135deg, black 0%, black 30%, transparent 70%)",
+            WebkitMaskImage: "linear-gradient(135deg, black 0%, black 30%, transparent 70%)",
+          }}
+        >
           <SectionGradiendBg colors={gradientColors} shape="wave" />
-          <div className="absolute inset-0 bg-linear-to-b from-transparent via-card/80 to-card" />
         </div>
       )}
 

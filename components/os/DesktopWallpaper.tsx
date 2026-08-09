@@ -14,20 +14,34 @@ import {
 import {
   accentFromGradientColors,
   extractDominantAccent,
+  extractDominantPalette,
   type AccentPair,
 } from "@/lib/dominantColor";
 
-// Per-wallpaper-id memo so re-selecting a wallpaper doesn't re-sample pixels.
-const accentCache = new Map<string, AccentPair>();
+interface CachedAccent {
+  pair: AccentPair;
+  /** Wallpaper's own gradient stops (declared or pixel-sampled). */
+  palette: string[];
+}
 
-const applyAccent = (pair: AccentPair) => {
+// Per-wallpaper-id memo so re-selecting a wallpaper doesn't re-sample pixels.
+const accentCache = new Map<string, CachedAccent>();
+
+const applyAccent = (pair: AccentPair, palette?: string[]) => {
   const root = document.documentElement;
   root.style.setProperty("--accent", pair.accent);
   root.style.setProperty("--ring", pair.accent);
   root.style.setProperty("--os-accent", pair.osAccent);
   // Mirror into JS-reachable state for components that need the raw value
   // (e.g. feeding a shader's `colors` prop) rather than the CSS variable.
-  useAccentStore.getState().setAccent(pair);
+  useAccentStore.getState().setAccent(pair, palette?.length ? palette : undefined);
+};
+
+/** Accent + wallpaper-matched palette sampled from a decoded image/video. */
+const sampleMedia = (el: HTMLImageElement | HTMLVideoElement): CachedAccent | null => {
+  const pair = extractDominantAccent(el);
+  if (!pair) return null;
+  return { pair, palette: extractDominantPalette(el) ?? [] };
 };
 
 /**
@@ -52,7 +66,7 @@ export const DesktopWallpaper = () => {
   useEffect(() => {
     const cached = accentCache.get(wallpaper.id);
     if (cached) {
-      applyAccent(cached);
+      applyAccent(cached.pair, cached.palette);
       return;
     }
 
@@ -61,8 +75,11 @@ export const DesktopWallpaper = () => {
         accent: wallpaper.accent ?? DEFAULT_ACCENT,
         osAccent: wallpaper.osAccent ?? DEFAULT_OS_ACCENT,
       };
-      accentCache.set(wallpaper.id, pair);
-      applyAccent(pair);
+      // Gradient wallpapers declare their exact stops — the card gradients
+      // then match the desktop shader color-for-color.
+      const palette = wallpaper.colors?.length ? wallpaper.colors : undefined;
+      accentCache.set(wallpaper.id, { pair, palette: palette ?? [] });
+      applyAccent(pair, palette);
       return;
     }
 
@@ -77,16 +94,16 @@ export const DesktopWallpaper = () => {
     // load event won't fire again — sample it directly.
     const el = mediaRef.current;
     if (el instanceof HTMLImageElement && el.complete && el.naturalWidth > 0) {
-      const pair = extractDominantAccent(el);
-      if (pair) {
-        accentCache.set(wallpaper.id, pair);
-        applyAccent(pair);
+      const sampled = sampleMedia(el);
+      if (sampled) {
+        accentCache.set(wallpaper.id, sampled);
+        applyAccent(sampled.pair, sampled.palette);
       }
     } else if (el instanceof HTMLVideoElement && el.readyState >= 2) {
-      const pair = extractDominantAccent(el);
-      if (pair) {
-        accentCache.set(wallpaper.id, pair);
-        applyAccent(pair);
+      const sampled = sampleMedia(el);
+      if (sampled) {
+        accentCache.set(wallpaper.id, sampled);
+        applyAccent(sampled.pair, sampled.palette);
       }
     }
   }, [wallpaper]);
@@ -94,10 +111,10 @@ export const DesktopWallpaper = () => {
   const handleMediaReady = () => {
     const el = mediaRef.current;
     if (!el) return;
-    const pair = extractDominantAccent(el);
-    if (pair) {
-      accentCache.set(wallpaper.id, pair);
-      applyAccent(pair);
+    const sampled = sampleMedia(el);
+    if (sampled) {
+      accentCache.set(wallpaper.id, sampled);
+      applyAccent(sampled.pair, sampled.palette);
     }
   };
 

@@ -14,7 +14,7 @@ export const QuoteSlide = ({ quote }: QuoteSlideProps) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col justify-center gap-3 py-2"
     >
       <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">

@@ -3,12 +3,10 @@
 import { FaArrowUp } from "react-icons/fa6";
 import { serif } from "@/app/fonts";
 import { profile } from "@/constant";
+import { scrollToTop } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 export const FirstName = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
