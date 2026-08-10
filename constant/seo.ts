@@ -148,7 +148,7 @@ export const SITE_SEO = {
   },
   creator: "Abhijeet Kadam",
   publisher: "Abhijeet Kadam",
-  defaultOgImage: "/images/me.png",
+  defaultOgImage: "/images/me.jpg",
   twitterHandle: `@${githubSocial?.handle || "abhijeet8080"}`,
   socialLinks: socials.map((s) => s.url),
   locale: "en_US",

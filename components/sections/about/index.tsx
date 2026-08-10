@@ -26,7 +26,7 @@ interface AboutSectionProps {
 
 export const AboutSection = ({
   slides = DEFAULT_SLIDES,
-  imageSrc = "/images/me.png",
+  imageSrc = "/images/me.jpg",
 }: AboutSectionProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);

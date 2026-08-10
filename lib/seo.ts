@@ -125,7 +125,7 @@ export function generatePersonJsonLd() {
     givenName: profile.name.first,
     familyName: profile.name.last,
     url: SITE_SEO.siteUrl,
-    image: `${SITE_SEO.siteUrl}/images/me.png`,
+    image: `${SITE_SEO.siteUrl}/images/me.jpg`,
     email: SITE_SEO.author.email,
     description: SITE_SEO.defaultDescription,
     jobTitle: profile.work.title,
