@@ -27,26 +27,22 @@ export interface Wallpaper {
   available: boolean;
 }
 
-export const DEFAULT_WALLPAPER_ID = "abhi-dark";
+export const DEFAULT_WALLPAPER_ID = "sequoia-glow";
 
-export const DEFAULT_ACCENT = "hsl(193 85% 66%)";
-export const DEFAULT_OS_ACCENT = "#0A84FF";
+export const DEFAULT_ACCENT = "#F5A524";
+export const DEFAULT_OS_ACCENT = "#FF9F0A";
 
 /**
  * Gradient stops of the default wallpaper — used as the initial accent palette
  * (bento card washes, photo backdrop) before/while the live one is derived.
- * Kept in sync with the "abhi-dark" entry below.
+ * Kept in sync with the "sequoia-glow" entry below.
  */
-export const DEFAULT_PALETTE = [
-  "hsl(193, 85%, 66%)",
-  "hsl(196, 100%, 83%)",
-  "hsl(195, 100%, 50%)",
-];
+export const DEFAULT_PALETTE = ["#F97316", "#F59E0B", "#EF4444"];
 
 export const WALLPAPERS: Wallpaper[] = [
   {
-    id: "abhi-dark",
-    name: "Abhi Dark",
+    id: "sonoma",
+    name: "Sonoma",
     type: "gradient",
     colors: ["hsl(193, 85%, 66%)", "hsl(196, 100%, 83%)", "hsl(195, 100%, 50%)"],
     shape: "corners",
@@ -92,6 +88,126 @@ export const WALLPAPERS: Wallpaper[] = [
     shape: "wave",
     accent: "#D4D4D8",
     osAccent: "#98989D",
+    available: true,
+  },
+  {
+    id: "ventura",
+    name: "Ventura",
+    type: "gradient",
+    colors: ["#EC4899", "#A855F7", "#6366F1"],
+    shape: "ripple",
+    accent: "#F472B6",
+    osAccent: "#FF375F",
+    available: true,
+  },
+  {
+    id: "big-sur",
+    name: "Big Sur",
+    type: "gradient",
+    colors: ["#38BDF8", "#0284C7", "#1E3A8A"],
+    shape: "blob",
+    accent: "#38BDF8",
+    osAccent: "#0A84FF",
+    available: true,
+  },
+  {
+    id: "tahoe",
+    name: "Tahoe",
+    type: "gradient",
+    colors: ["#BFDBFE", "#60A5FA", "#1D4ED8"],
+    shape: "sphere",
+    accent: "#93C5FD",
+    osAccent: "#5AC8FA",
+    available: true,
+  },
+  {
+    id: "catalina",
+    name: "Catalina",
+    type: "gradient",
+    colors: ["#FB7185", "#F97316", "#FBBF24"],
+    shape: "dots",
+    accent: "#FB923C",
+    osAccent: "#FF9500",
+    available: true,
+  },
+  {
+    id: "mojave",
+    name: "Mojave",
+    type: "gradient",
+    colors: ["#D97706", "#92400E", "#6D28D9"],
+    shape: "truchet",
+    accent: "#F59E0B",
+    osAccent: "#AC8E68",
+    available: true,
+  },
+  {
+    id: "aurora",
+    name: "Aurora",
+    type: "gradient",
+    colors: ["#22D3EE", "#34D399", "#A78BFA"],
+    shape: "wave",
+    accent: "#34D399",
+    osAccent: "#30D158",
+    available: true,
+  },
+  {
+    id: "midnight",
+    name: "Midnight",
+    type: "gradient",
+    colors: ["#1E1B4B", "#312E81", "#4C1D95"],
+    shape: "corners",
+    accent: "#818CF8",
+    osAccent: "#5E5CE6",
+    available: true,
+  },
+  {
+    id: "rose-quartz",
+    name: "Rose Quartz",
+    type: "gradient",
+    colors: ["#FDA4AF", "#F9A8D4", "#E879F9"],
+    shape: "ripple",
+    accent: "#F472B6",
+    osAccent: "#FF375F",
+    available: true,
+  },
+  {
+    id: "high-sierra",
+    name: "High Sierra",
+    type: "gradient",
+    colors: ["#9CA3AF", "#4B5563", "#065F46"],
+    shape: "blob",
+    accent: "#6EE7B7",
+    osAccent: "#30D158",
+    available: true,
+  },
+  {
+    id: "sunset-ridge",
+    name: "Sunset Ridge",
+    type: "gradient",
+    colors: ["#BE185D", "#DC2626", "#F59E0B"],
+    shape: "sphere",
+    accent: "#F87171",
+    osAccent: "#FF453A",
+    available: true,
+  },
+  {
+    id: "obsidian",
+    name: "Obsidian",
+    type: "gradient",
+    colors: ["#18181B", "#27272A", "#581C87"],
+    shape: "dots",
+    accent: "#C084FC",
+    osAccent: "#BF5AF2",
+    available: true,
+  },
+  {
+    id: "neon-pulse",
+    name: "Neon Pulse",
+    type: "gradient",
+    colors: ["#06B6D4", "#D946EF", "#84CC16"],
+    shape: "truchet",
+    accent: "#22D3EE",
+    osAccent: "#64D2FF",
     available: true,
   },
   {

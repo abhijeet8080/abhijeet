@@ -9,7 +9,7 @@ interface WallpaperState {
 export const useWallpaperStore = create<WallpaperState>()(
   persist(
     (set) => ({
-      currentId: "abhi-dark",
+      currentId: "sequoia-glow",
       setWallpaper: (id) => set({ currentId: id }),
     }),
     {
