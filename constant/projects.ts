@@ -26,7 +26,7 @@ export const selected_works: Project[] = [
       "Clerk",
     ],
     links: {
-      live: "https://rika-silk.vercel.app/",
+      live: "https://rika.abhijeetkadam.in",
       github: "https://github.com/abhijeet8080/rika",
     },
   },

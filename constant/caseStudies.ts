@@ -91,7 +91,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: "Delivery phases", value: "4 shipped" },
     ],
     links: {
-      live: "https://rika-silk.vercel.app/",
+      live: "https://rika.abhijeetkadam.in",
       github: "https://github.com/abhijeet8080/rika",
     },
   },
