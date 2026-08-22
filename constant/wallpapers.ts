@@ -282,4 +282,13 @@ export const WALLPAPERS: Wallpaper[] = [
     osAccent: "#FFD60A",
     available: true,
   },
+  {
+    id: "peter-parker-rooftop-sunset",
+    name: "Peter Parker Rooftop Sunset",
+    type: "video",
+    src: "/wallpapers/peter-parker-rooftop-sunset.mp4",
+    accent: "hsl(350 85% 55%)",
+    osAccent: "#FF375F",
+    available: true,
+  },
 ];

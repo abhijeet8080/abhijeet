@@ -25,7 +25,7 @@ export const QuoteSlide = ({ quote }: QuoteSlideProps) => {
       </blockquote>
 
       <span className="font-mono text-xs text-neutral-400 self-end font-medium">
-        — {profile.name.full}
+        — {profile.name.first}
       </span>
     </motion.div>
   );
