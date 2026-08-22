@@ -62,7 +62,7 @@ const WallpaperCard = ({ wallpaper }: { wallpaper: Wallpaper }) => {
       >
         {/* Live preview of the actual wallpaper */}
         {wallpaper.available ? (
-          <WallpaperPreview wallpaper={wallpaper} />
+          <WallpaperPreview wallpaper={wallpaper} mode="static" />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-white/5">
             <FilePlus2 className="h-4 w-4 text-white/35" />

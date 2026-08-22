@@ -14,7 +14,7 @@ export const selected_works: Project[] = [
     name: "Rika",
     slug: "rika",
     description:
-      "AI meeting notetaker that joins Zoom, Google Meet, and Microsoft Teams calls via Recall.ai — capturing speaker-attributed transcripts and answering questions with cited RAG, both live in-call through @Rika mentions and after the meeting in a web chat.",
+      "Joins your Zoom, Google Meet, and Teams calls. Captures speaker-attributed transcripts and answers questions with cited RAG, live in-call through @Rika mentions or after the meeting in a web chat.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -34,7 +34,7 @@ export const selected_works: Project[] = [
     name: "ARIA",
     slug: "aria",
     description:
-      "Multilingual AI voice agent that handles inbound phone calls end-to-end — auto-detecting the caller's language across 30+ languages, booking appointments, and supporting real-time barge-in at sub-800ms latency via a native audio-to-audio pipeline.",
+      "Answers inbound calls end to end. Auto-detects the caller's language across 30+ languages, books appointments, and handles real-time barge-in at sub-800ms latency through a native audio-to-audio pipeline.",
     technologies: [
       "TypeScript",
       "Hono",
@@ -52,7 +52,7 @@ export const selected_works: Project[] = [
     name: "redai",
     slug: "redai",
     description:
-      "A from-scratch, provider-agnostic TypeScript agent SDK published on npm — hand-written agent loop, tool calling, structured output, guardrails, multi-agent handoffs, sessions, streaming, and tracing. No agent framework underneath.",
+      "A provider-agnostic TypeScript agent SDK published on npm. Hand-written agent loop, tool calling, structured output, guardrails, multi-agent handoffs, sessions, streaming, tracing. No agent framework underneath.",
     technologies: [
       "TypeScript",
       "Zod",
@@ -71,7 +71,7 @@ export const selected_works: Project[] = [
     name: "NotebookLM",
     slug: "notebooklm",
     description:
-      "AI-powered research assistant — create notebooks, ingest PDFs, DOCX, websites, YouTube videos, and transcripts, then ask natural-language questions with streamed answers and inline citations that open the exact source passage.",
+      "Feed it PDFs, DOCX, websites, YouTube videos, transcripts. Ask it anything in plain language and get a streamed answer with inline citations that open the exact source passage.",
     technologies: [
       "Next.js",
       "Fastify",
@@ -93,7 +93,7 @@ export const works: Project[] = [
     name: "Bugbot",
     slug: "bugbot",
     description:
-      "Automated GitHub pull-request review bot — a webhook-driven server enqueues review jobs, and a background worker fetches PR diffs, runs a token-bounded LLM analysis pipeline, and posts inline review comments directly on the PR.",
+      "Reviews your pull requests before you do. A webhook-driven server enqueues review jobs, a background worker fetches the diff, runs a token-bounded LLM pipeline, and posts inline comments directly on the PR.",
     technologies: [
       "TypeScript",
       "Hono",

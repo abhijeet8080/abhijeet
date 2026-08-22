@@ -122,19 +122,19 @@ export const NotFoundGame: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center justify-center relative overflow-x-hidden p-4 sm:p-6 md:p-8">
-      {/* Top Left Go Back Button */}
-      <GoBackButton />
-
-      {/* Top Right Stats Bar */}
-      <GameStats
-        moves={moves}
-        timeSeconds={timeSeconds}
-        matchedPairsCount={matchedIndices.size / 2}
-      />
+    <div className="flex w-full flex-col items-center text-foreground">
+      {/* Top row: back link + stats, matching the other pages' header rhythm */}
+      <div className="flex w-full items-center justify-between gap-4">
+        <GoBackButton />
+        <GameStats
+          moves={moves}
+          timeSeconds={timeSeconds}
+          matchedPairsCount={matchedIndices.size / 2}
+        />
+      </div>
 
       {/* Main Content Area */}
-      <main className="flex flex-col items-center justify-center text-center my-auto py-12 max-w-4xl w-full">
+      <main className="my-auto flex w-full max-w-4xl flex-col items-center justify-center py-12 text-center">
         {/* Header Text */}
         <GameHeader />
 
@@ -147,7 +147,7 @@ export const NotFoundGame: React.FC = () => {
           onReset={initializeGame}
         />
 
-        {/* Bottom Home Page Button (matching screenshot style) */}
+        {/* Bottom Home Page Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export const NotFoundGame: React.FC = () => {
         >
           <button
             onClick={() => router.push("/")}
-            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/15 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-accent transition-colors hover:bg-accent/25 cursor-pointer"
           >
             <span>Home page</span>
             <FaHouse className="size-3.5" />

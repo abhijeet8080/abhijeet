@@ -10,6 +10,15 @@ interface WallpaperPreviewProps {
   mediaRef?: RefObject<HTMLImageElement | HTMLVideoElement | null>;
   /** Called when image pixels are loaded / video data is ready */
   onMediaReady?: () => void;
+  /**
+   * "static" renders gradients as a plain CSS gradient instead of the
+   * animated WebGL shader. Browsers cap simultaneous WebGL contexts, and
+   * every GrainGradient instance opens one — with a dozen-plus gradient
+   * thumbnails on screen at once (e.g. the System Settings grid), the
+   * oldest contexts get silently evicted and render blank. Use "static"
+   * for small/list thumbnails; reserve "full" for the one active preview.
+   */
+  mode?: "full" | "static";
 }
 
 /**
@@ -20,6 +29,7 @@ export const WallpaperPreview = ({
   wallpaper,
   mediaRef,
   onMediaReady,
+  mode = "full",
 }: WallpaperPreviewProps) => {
   if (wallpaper.type === "image" && wallpaper.src) {
     return (
@@ -49,6 +59,20 @@ export const WallpaperPreview = ({
         playsInline
         className="h-full w-full object-cover"
         onLoadedData={onMediaReady}
+      />
+    );
+  }
+
+  if (mode === "static") {
+    const colors = wallpaper.colors ?? [];
+    return (
+      <div
+        className="h-full w-full"
+        style={{
+          background: colors.length
+            ? `linear-gradient(135deg, ${colors.join(", ")})`
+            : "#000",
+        }}
       />
     );
   }

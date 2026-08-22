@@ -88,5 +88,5 @@ export const profile: Profile = {
     ],
   },
 
-  quote: "No claim without a path back to the source.",
+  quote: "If it can fail, it will. Plan for that first.",
 };

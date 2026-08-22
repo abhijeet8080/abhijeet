@@ -2,8 +2,13 @@ import { NotFoundGame } from "@/components/mics";
 
 export default function NotFound() {
   return (
-    <main className="relative z-10 flex min-h-screen flex-col items-center justify-center bg-background px-6 pb-16 pt-10">
-      <NotFoundGame />
+    <main className="relative z-10 min-h-screen">
+      {/* Readability scrim — keeps the game legible over any wallpaper */}
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-md" aria-hidden />
+
+      <div className="relative mx-auto w-full max-w-5xl px-6 pb-28 pt-16 md:px-12">
+        <NotFoundGame />
+      </div>
     </main>
   );
 }

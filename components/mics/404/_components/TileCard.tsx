@@ -64,11 +64,9 @@ export const TileCard: React.FC<TileCardProps> = ({
         <div
           className={cn(
             "absolute inset-0 overflow-hidden rounded-xl sm:rounded-2xl",
-            "border border-white/10",
-            "bg-linear-to-br from-neutral-800 via-neutral-900 to-black",
-            // "shadow-[0_10px_30px_rgba(0,0,0,0.45)]",
+            "border border-border",
+            "bg-linear-to-br from-card via-card/80 to-background",
             "transition-all duration-300",
-            // "group-hover:border-white/20",
           )}
           style={{
             backfaceVisibility: "hidden",
@@ -108,8 +106,8 @@ export const TileCard: React.FC<TileCardProps> = ({
             "border",
             tile.iconData.bg,
             isMatched
-              ? "border-emerald-400 ring-1 ring-emerald-400/40"
-              : "border-white/15 bg-neutral-900",
+              ? "border-accent ring-1 ring-accent/40"
+              : "border-border bg-card",
           )}
           style={{
             transform: "rotateY(180deg)",
@@ -118,7 +116,7 @@ export const TileCard: React.FC<TileCardProps> = ({
           }}
         >
           {/* soft glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,185,0,.08),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,.06),transparent_70%)]" />
 
           <motion.div
             initial={false}

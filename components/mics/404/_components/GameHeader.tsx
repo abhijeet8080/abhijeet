@@ -11,11 +11,11 @@ export const GameHeader: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="space-y-3 mb-8 text-center"
     >
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white">
-        Page not found,{" "}
-        <span className="text-emerald-400 font-bold">
-          let&apos;s play
-        </span>
+      <div className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        {"// 404"}
+      </div>
+      <h1 className="font-heading text-3xl font-bold text-primary drop-shadow-md sm:text-4xl md:text-5xl">
+        Page not found, let&apos;s play
       </h1>
       <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
         Flip matching icons in the 404 grid to clear the game and unlock your custom winner trophy!

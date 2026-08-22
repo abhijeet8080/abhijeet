@@ -28,34 +28,34 @@ export const CASE_STUDIES: CaseStudy[] = [
     status: "Shipped",
     gradient: ["#F97316", "#F59E0B", "#EF4444"],
     overview: [
-      "Paste a meeting link — or connect a calendar — and Rika joins Zoom, Google Meet, or Microsoft Teams calls via Recall.ai. She records audio/video, captures speaker-attributed transcripts, and turns every meeting into a searchable, queryable knowledge base.",
-      "After the call, a webhook-driven pipeline chunks the transcript by speaker turn, generates embeddings, and powers a RAG chat with citations — plus live in-call Q&A through @Rika mentions in the meeting chat. When the bot leaves, meeting intelligence (summary, action items, timestamped highlights) is generated automatically.",
+      "Paste a meeting link, or connect a calendar, and Rika joins Zoom, Google Meet, or Microsoft Teams via Recall.ai. She records audio and video, captures speaker-attributed transcripts, and turns every meeting into a searchable, queryable knowledge base.",
+      "After the call, a webhook-driven pipeline chunks the transcript by speaker turn, generates embeddings, and powers a RAG chat with citations, plus live in-call Q&A through @Rika mentions in the meeting chat. When the bot leaves, meeting intelligence (summary, action items, timestamped highlights) generates automatically.",
     ],
     features: [
       {
         title: "Joins any call",
         description:
-          "Zoom, Google Meet, and Microsoft Teams via Recall.ai — paste a link for an instant bot, or auto-record from connected Google/Outlook calendars.",
+          "Zoom, Google Meet, and Microsoft Teams via Recall.ai. Paste a link for an instant bot, or auto-record from connected Google/Outlook calendars.",
       },
       {
         title: "Live in-call answers",
         description:
-          "Participants message @Rika in the meeting chat and get answers grounded in the transcript — while the meeting is still happening.",
+          "Participants message @Rika in the meeting chat and get answers grounded in the transcript while the meeting is still happening.",
       },
       {
         title: "Cited RAG chat",
         description:
-          "Category-scoped retrieval with query classification that skips unnecessary lookups; responses stream with inline citations through the Vercel AI SDK.",
+          "Category-scoped retrieval with query classification that skips unnecessary lookups. Responses stream with inline citations through the Vercel AI SDK.",
       },
       {
         title: "Meeting intelligence",
         description:
-          "Summaries, action items, and timestamped highlights generated automatically when the call ends — regenerable on demand.",
+          "Summaries, action items, and timestamped highlights generate automatically when the call ends. Regenerable on demand.",
       },
       {
         title: "Multi-tenant by design",
         description:
-          "Clerk authentication, resource-level ownership checks on every route, and Upstash rate limiting for safe multi-user usage.",
+          "Clerk authentication, resource-level ownership checks on every route, and Upstash rate limiting keep it safe for multiple users.",
       },
       {
         title: "Exports",
@@ -67,7 +67,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       "A Recall.ai bot joins the meeting and streams lifecycle events to a webhook endpoint",
       "On completion, the transcript is chunked by speaker turn for attribution",
       "768-dimensional Gemini embeddings are generated per chunk",
-      "Vectors are upserted into Qdrant; metadata persists to Neon Postgres via Drizzle — failure-safe, reprocessable",
+      "Vectors are upserted into Qdrant; metadata persists to Neon Postgres via Drizzle, failure-safe and reprocessable",
       "At query time: classify intent → retrieve → stream a cited answer",
     ],
     stack: [
@@ -99,18 +99,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "aria",
     name: "ARIA",
     tagline:
-      "A multilingual AI receptionist that answers phone calls in the caller's own language — in real time.",
-    status: "Built — dual architecture",
+      "A multilingual AI receptionist that answers phone calls in the caller's own language, in real time.",
+    status: "Built, dual architecture",
     gradient: ["#9333EA", "#6366F1", "#8B5CF6"],
     overview: [
-      "ARIA is a phone-based AI voice agent for a medical clinic. Incoming calls are handled by Twilio; audio streams over WebSockets to a Node.js server that acts as a central bridge — processing the caller's audio, reasoning about it, and speaking back naturally, in the caller's own language.",
-      "The system supports two swappable architectures: a native audio-in/audio-out pipeline on the Gemini Live API, and a sequential pipeline chaining Deepgram STT → Gemini → a dual-provider TTS layer — toggled by a single config switch.",
+      "ARIA is a phone-based AI voice agent for a medical clinic. Twilio handles incoming calls, audio streams over WebSockets to a Node.js server that acts as a central bridge, processing the caller's audio, reasoning about it, and speaking back naturally, in the caller's own language.",
+      "The system supports two swappable architectures: a native audio-in/audio-out pipeline on the Gemini Live API, and a sequential pipeline chaining Deepgram STT, Gemini, and a dual-provider TTS layer, toggled by a single config switch.",
     ],
     features: [
       {
         title: "30+ languages, auto-detected",
         description:
-          "Deepgram's nova-2 multilingual model detects the caller's language (normalized to BCP-47) and the entire conversation continues in it — Deepgram Aura 2 for English, Google Cloud TTS for everything else.",
+          "Deepgram's nova-2 multilingual model detects the caller's language (normalized to BCP-47) and the entire conversation continues in it. Deepgram Aura 2 for English, Google Cloud TTS for everything else.",
       },
       {
         title: "Sub-800ms responses",
@@ -120,25 +120,25 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         title: "Real-time barge-in",
         description:
-          "A local ONNX voice-activity detector watches every audio packet — callers can interrupt mid-sentence and playback is cut instantly.",
+          "A local ONNX voice-activity detector watches every audio packet. Callers can interrupt mid-sentence and playback cuts instantly.",
       },
       {
         title: "Stateful appointment booking",
         description:
-          "A GREETING → COLLECTING_INFO → CONFIRMING → BOOKED/FAILED state machine collects details, checks slot availability, books into Postgres, and sends an SMS confirmation.",
+          "A GREETING to COLLECTING_INFO to CONFIRMING to BOOKED/FAILED state machine collects details, checks slot availability, books into Postgres, and sends an SMS confirmation.",
       },
       {
         title: "Production plumbing",
         description:
-          "Session locks in Upstash Redis; full transcripts and final call state logged to Supabase on every hangup.",
+          "Session locks in Upstash Redis. Full transcripts and final call state logged to Supabase on every hangup.",
       },
     ],
     architecture: [
       "Twilio streams continuous 8 kHz µ-law audio packets over WebSockets",
-      "Every packet feeds the local VAD — speech onset fires an instant barge-in event",
-      "Live mode: audio is upsampled to Gemini Live and its audio response is downsampled back; Sequential mode: Deepgram STT → Gemini → language-aware TTS",
+      "Every packet feeds the local VAD. Speech onset fires an instant barge-in event",
+      "Live mode: audio is upsampled to Gemini Live and its audio response is downsampled back. Sequential mode: Deepgram STT, then Gemini, then language-aware TTS",
       "Tool calls (check slots, book appointment, send SMS) execute with dynamic state instructions injected before each turn",
-      "On hangup: the Redis session lock is released and the full transcript + final state are logged to Supabase",
+      "On hangup: the Redis session lock releases and the full transcript plus final state log to Supabase",
     ],
     stack: [
       "TypeScript",
@@ -168,23 +168,23 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "redai",
     name: "redai",
     tagline:
-      "A from-scratch TypeScript agent SDK — the loop, tools, guardrails, handoffs, streaming, and tracing are all hand-written.",
+      "A from-scratch TypeScript agent SDK. The loop, tools, guardrails, handoffs, streaming, and tracing are all hand-written.",
     status: "Published on npm",
     gradient: ["#38BDF8", "#2563EB", "#4F46E5"],
     overview: [
-      "redai is a minimal, provider-agnostic agent runtime you embed in your own Node/TypeScript apps. Configure an Agent — instructions, model, tools, optional schemas, guardrails, handoffs — then call run() or stream().",
-      "It is deliberately not a wrapper around LangChain, LlamaIndex, or the OpenAI Agents SDK: the agent loop, tool dispatch, guardrails, handoffs, streaming, and tracing are all hand-written. Provider SDKs are optional peer dependencies — install only what you use.",
+      "redai is a minimal, provider-agnostic agent runtime you embed in your own Node/TypeScript apps. Configure an Agent (instructions, model, tools, optional schemas, guardrails, handoffs), then call run() or stream().",
+      "It is deliberately not a wrapper around LangChain, LlamaIndex, or the OpenAI Agents SDK. The agent loop, tool dispatch, guardrails, handoffs, streaming, and tracing are all hand-written. Provider SDKs are optional peer dependencies, so you install only what you use.",
     ],
     features: [
       {
         title: "Typed agent loop",
         description:
-          "A readable, owned agent loop in runner.ts — tool calling, turn management, and termination conditions with zero framework magic.",
+          "A readable, owned agent loop in runner.ts. Tool calling, turn management, and termination conditions with zero framework magic.",
       },
       {
         title: "Structured output",
         description:
-          "Zod schemas compile to JSON Schema for providers, then validate — with automatic repair attempts on malformed model output.",
+          "Zod schemas compile to JSON Schema for providers, then validate, with automatic repair attempts on malformed model output.",
       },
       {
         title: "Guardrails everywhere",
@@ -199,20 +199,20 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         title: "Sessions & memory",
         description:
-          "Multi-turn conversations via in-memory or JSON-file session stores — your infra, your choice.",
+          "Multi-turn conversations via in-memory or JSON-file session stores. Your infra, your choice.",
       },
       {
         title: "Observable by default",
         description:
-          "Every run returns a Trace with spans and token totals; streaming events let you watch the loop think.",
+          "Every run returns a Trace with spans and token totals. Streaming events let you watch the loop think.",
       },
     ],
     architecture: [
-      "No framework under the hood — the loop is owned and readable in runner.ts",
-      "Result types over throws — expected failures return { ok: false, error } so callers branch with instanceof",
-      "One streaming path — run() is simply a drain of stream(), so features never drift apart",
-      "Provider-agnostic core — only ModelProvider + ModelMessage exist at the boundary; OpenAI, Anthropic, and Gemini adapters are optional peers",
-      "Safety valves — maxTurns, maxHandoffs, and maxOutputRepairAttempts prevent runaway loops and runaway bills",
+      "No framework under the hood. The loop is owned and readable in runner.ts",
+      "Result types over throws. Expected failures return { ok: false, error } so callers branch with instanceof",
+      "One streaming path. run() is simply a drain of stream(), so features never drift apart",
+      "Provider-agnostic core. Only ModelProvider and ModelMessage exist at the boundary; OpenAI, Anthropic, and Gemini adapters are optional peers",
+      "Safety valves. maxTurns, maxHandoffs, and maxOutputRepairAttempts prevent runaway loops and runaway bills",
     ],
     stack: [
       "TypeScript",
@@ -240,23 +240,23 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "notebooklm",
     name: "NotebookLM",
     tagline:
-      "An AI research assistant where every answer cites its source — down to the exact page, timestamp, or passage.",
-    status: "Shipped — full RAG pipeline",
+      "An AI research assistant where every answer cites its source, down to the exact page, timestamp, or passage.",
+    status: "Shipped, full RAG pipeline",
     gradient: ["#10B981", "#0D9488", "#06B6D4"],
     overview: [
-      "Users create notebooks — isolated knowledge bases — then upload or link knowledge sources: PDFs, text, markdown, DOCX, websites, YouTube videos, VTT transcripts. Each source flows through an extract → chunk → embed → index pipeline with live status tracking.",
-      "Questions are answered with streamed, natural-language responses carrying inline citations. Clicking a citation opens the Source Viewer at the original page, timestamp, or highlighted passage — no claim without a path back to the source.",
+      "Users create notebooks, isolated knowledge bases, then upload or link sources: PDFs, text, markdown, DOCX, websites, YouTube videos, VTT transcripts. Each source flows through an extract, chunk, embed, index pipeline with live status tracking.",
+      "Questions get streamed, natural-language answers carrying inline citations. Click a citation and the Source Viewer opens at the original page, timestamp, or highlighted passage. No claim without a path back to the source.",
     ],
     features: [
       {
         title: "7 source types",
         description:
-          "PDF (pdf-parse), plain text, markdown, DOCX (mammoth), websites (Firecrawl → markdown), YouTube captions, and VTT transcripts.",
+          "PDF (pdf-parse), plain text, markdown, DOCX (mammoth), websites (Firecrawl to markdown), YouTube captions, and VTT transcripts.",
       },
       {
         title: "Live indexing status",
         description:
-          "Sources move through pending → parsing → chunking → embedding → indexing → ready, with the UI polling every 2 seconds and one-click reindex on failure.",
+          "Sources move from pending to parsing to chunking to embedding to indexing to ready, with the UI polling every 2 seconds and one-click reindex on failure.",
       },
       {
         title: "Hybrid retrieval",
@@ -266,7 +266,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         title: "Local embeddings",
         description:
-          "Supabase/bge-small-en runs locally via @huggingface/transformers — 384-dim ONNX inference, no embedding API bill.",
+          "Supabase/bge-small-en runs locally via @huggingface/transformers. 384-dim ONNX inference, no embedding API bill.",
       },
       {
         title: "Source Viewer",
@@ -280,10 +280,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
     ],
     architecture: [
-      "Upload or link a source — a BullMQ ingestion job lands on the queue (Upstash Redis)",
-      "The worker extracts text, chunks it, embeds locally, and indexes into Qdrant — status live at every stage",
-      "Chunk text + tsvector vectors live in Neon Postgres (Drizzle) for keyword search",
-      "On ask: query transform → hybrid retrieve → Voyage rerank → DeepSeek streams the synthesized answer",
+      "Upload or link a source. A BullMQ ingestion job lands on the queue (Upstash Redis)",
+      "The worker extracts text, chunks it, embeds locally, and indexes into Qdrant, with status live at every stage",
+      "Chunk text and tsvector vectors live in Neon Postgres (Drizzle) for keyword search",
+      "On ask: query transform, then hybrid retrieve, then Voyage rerank, then DeepSeek streams the synthesized answer",
       "Every sentence carries a [[chunkId]] citation that the Source Viewer resolves back to the original material",
     ],
     stack: [
@@ -316,18 +316,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "bugbot",
     name: "Bugbot",
     tagline:
-      "A GitHub App that reviews your pull requests with inline LLM comments — webhook in, review out.",
-    status: "Built — server + worker monorepo",
+      "A GitHub App that reviews your pull requests with inline LLM comments. Webhook in, review out.",
+    status: "Built, server + worker monorepo",
     gradient: ["#F97316", "#F59E0B", "#EF4444"],
     overview: [
-      "When a PR is opened or updated, GitHub sends a webhook to the Bugbot server. The server validates the signature, enqueues a review job, and responds in milliseconds — a background worker then picks up the job, fetches the PR diff, runs an LLM analysis pipeline, and posts inline review comments directly on the PR.",
-      "The system is a TypeScript monorepo with two runnable apps (server + worker) and two shared packages (config + db), built for resilience: retries with backoff, per-chunk error isolation, token caps, and comment deduplication.",
+      "When a PR opens or updates, GitHub sends a webhook to the Bugbot server. The server validates the signature, enqueues a review job, and responds in milliseconds. A background worker then picks up the job, fetches the PR diff, runs an LLM analysis pipeline, and posts inline review comments directly on the PR.",
+      "The system is a TypeScript monorepo with two runnable apps (server and worker) and two shared packages (config and db), built for resilience: retries with backoff, per-chunk error isolation, token caps, and comment deduplication.",
     ],
     features: [
       {
         title: "Millisecond webhooks",
         description:
-          "The Hono server verifies the HMAC signature, upserts a ReviewJob, enqueues to BullMQ, and acks GitHub in milliseconds — all heavy lifting is deferred.",
+          "The Hono server verifies the HMAC signature, upserts a ReviewJob, enqueues to BullMQ, and acks GitHub in milliseconds. All heavy lifting is deferred.",
       },
       {
         title: "Token-bounded chunking",
@@ -347,7 +347,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         title: "No duplicate noise",
         description:
-          "Existing PR comments are fetched before posting, so re-pushes never re-report the same issue.",
+          "Existing PR comments get fetched before posting, so re-pushes never re-report the same issue.",
       },
     ],
     architecture: [
