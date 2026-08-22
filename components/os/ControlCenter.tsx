@@ -20,6 +20,10 @@ import { TrackCover } from "./NowPlaying";
 import { playClick } from "@/lib/sounds";
 import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import {
+  glassEffect,
+  GlassEffectContainer,
+} from "@/components/ui/liquid-glass";
 
 interface ControlCenterProps {
   open: boolean;
@@ -46,7 +50,11 @@ const ToggleCard = ({
       playClick();
       onToggle();
     }}
-    className="flex cursor-default items-center gap-2.5 rounded-xl bg-white/5 p-2.5 text-left transition-colors hover:bg-white/10"
+    className={cn(
+      "flex cursor-default items-center gap-2.5 rounded-xl p-2.5 text-left",
+      /* .interactive() — toggleable control: it responds to the pointer. */
+      glassEffect({ shape: "none", interactive: true })
+    )}
   >
     <span
       className={cn(
@@ -84,7 +92,7 @@ const SliderRow = ({
 }) => {
   const pct = ((value - min) / (max - min)) * 100;
   return (
-    <div className="rounded-xl bg-white/5 p-3">
+    <div className={cn("rounded-xl p-3", glassEffect({ shape: "none" }))}>
       <div className="mb-2 flex items-center gap-2">
         <Icon className="h-3.5 w-3.5 text-white/70" />
         <span className="text-[12px] font-medium text-white/90">{label}</span>
@@ -113,7 +121,12 @@ const NowPlayingCard = () => {
   const track = PLAYLIST[trackIndex];
 
   return (
-    <div className="flex items-center gap-2.5 rounded-xl bg-white/5 p-2.5">
+    <div
+      className={cn(
+        "flex items-center gap-2.5 rounded-xl p-2.5",
+        glassEffect({ shape: "none" })
+      )}
+    >
       <TrackCover track={track} className="h-9 w-9 rounded-lg" />
       <div className="min-w-0 flex-1">
         <div className="truncate text-[12px] font-semibold text-white/90">
@@ -182,9 +195,13 @@ export const ControlCenter = ({ open, onClose }: ControlCenterProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
             transition={OS_MENU_TRANSITION}
-            className="fixed right-2 top-8 z-[10500] w-[min(320px,calc(100vw-16px))] rounded-[18px] border border-white/10 bg-[#28282A]/75 p-2.5 shadow-2xl backdrop-blur-2xl select-none"
+            className={cn(
+              "fixed right-2 top-8 z-[10500] w-[min(320px,calc(100vw-16px))] rounded-[18px] p-2.5 select-none",
+              /* Translucent glass panel — no opaque backing (skill anti-pattern). */
+              glassEffect({ shape: "none" })
+            )}
           >
-            <div className="grid grid-cols-2 gap-2.5">
+            <GlassEffectContainer spacing={10} className="grid grid-cols-2 gap-2.5">
               <ToggleCard
                 icon={Wifi}
                 label="Wi-Fi"
@@ -213,9 +230,9 @@ export const ControlCenter = ({ open, onClose }: ControlCenterProps) => {
                 active={focusDND}
                 onToggle={toggleFocus}
               />
-            </div>
+            </GlassEffectContainer>
 
-            <div className="mt-2.5 flex flex-col gap-2.5">
+            <GlassEffectContainer spacing={10} className="mt-2.5 flex flex-col gap-2.5">
               <SliderRow
                 icon={Sun}
                 label="Display"
@@ -233,7 +250,7 @@ export const ControlCenter = ({ open, onClose }: ControlCenterProps) => {
                 onChange={setVolume}
               />
               <NowPlayingCard />
-            </div>
+            </GlassEffectContainer>
           </motion.div>
         </>
       )}

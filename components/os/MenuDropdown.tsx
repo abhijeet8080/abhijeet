@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { glassEffect } from "@/components/ui/liquid-glass";
 
 export interface MenuItem {
   label?: string;
@@ -32,7 +33,8 @@ export const MenuDropdown = ({
           exit={{ opacity: 0, scale: 0.96, y: -4 }}
           transition={OS_MENU_TRANSITION}
           className={cn(
-            "absolute left-0 top-full z-50 mt-1 min-w-60 origin-top-left rounded-lg border border-white/10 bg-[#232326]/90 p-1 shadow-2xl backdrop-blur-2xl",
+            "absolute left-0 top-full z-50 mt-1 min-w-60 origin-top-left rounded-lg p-1",
+            glassEffect({ shape: "none" }),
             className
           )}
         >

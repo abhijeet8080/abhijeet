@@ -5,6 +5,11 @@ import { Terminal, Image as ImageIcon, Sparkles } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { useCodingStats } from "@/hooks/useCodingStats";
 import { useSystemStore } from "@/store/systemStore";
+import { cn } from "@/lib/utils";
+import {
+  glassEffect,
+  GlassEffectContainer,
+} from "@/components/ui/liquid-glass";
 
 interface NotificationCenterProps {
   open: boolean;
@@ -27,7 +32,7 @@ const CalendarWidget = () => {
   ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-xl">
+    <div className={cn("rounded-2xl p-3.5", glassEffect({ shape: "none" }))}>
       <div className="mb-2 flex items-baseline justify-between">
         <span className="text-[13px] font-semibold text-os-accent">
           {now.toLocaleDateString("en-US", { month: "long" })}
@@ -75,7 +80,7 @@ const GithubWidget = () => {
         ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-xl">
+    <div className={cn("rounded-2xl p-3.5", glassEffect({ shape: "none" }))}>
       <div className="mb-2.5 flex items-center gap-2">
         <FaGithub className="h-4 w-4 text-white/80" />
         <span className="text-[13px] font-semibold text-white/90">
@@ -144,12 +149,18 @@ export const NotificationCenter = ({
             transition={{ type: "spring", stiffness: 380, damping: 34 }}
             className="fixed bottom-0 right-0 top-7 z-[10500] w-[min(360px,100vw)] select-none overflow-y-auto p-3"
           >
-            <div className="flex flex-col gap-3">
+            {/* One GlassEffectContainer for every sibling glass card below. */}
+            <GlassEffectContainer spacing={12} className="flex flex-col gap-3">
               <CalendarWidget />
               <GithubWidget />
 
               {focusDND && (
-                <div className="rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-center text-[11px] text-white/50 backdrop-blur-xl">
+                <div
+                  className={cn(
+                    "rounded-2xl px-3.5 py-2.5 text-center text-[11px] text-white/50",
+                    glassEffect({ shape: "none" })
+                  )}
+                >
                   Do Not Disturb is on — notifications are silenced
                 </div>
               )}
@@ -160,7 +171,10 @@ export const NotificationCenter = ({
                     key={n.title}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-xl"
+                    className={cn(
+                      "rounded-2xl p-3.5",
+                      glassEffect({ shape: "none" })
+                    )}
                   >
                     <div className="flex items-start gap-2.5">
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-os-accent">
@@ -182,7 +196,7 @@ export const NotificationCenter = ({
                     </div>
                   </motion.div>
                 ))}
-            </div>
+            </GlassEffectContainer>
           </motion.aside>
         </>
       )}

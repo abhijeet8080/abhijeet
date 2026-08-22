@@ -7,6 +7,7 @@ import { PLAYLIST, type Track } from "@/constant/music";
 import { playClick } from "@/lib/sounds";
 import { OS_MENU_TRANSITION } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { glassEffect } from "@/components/ui/liquid-glass";
 
 /** Animated bars shown while audio is playing (macOS Now Playing style) */
 export const Equalizer = ({
@@ -136,7 +137,10 @@ export const NowPlaying = ({ open, onClose }: NowPlayingProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
             transition={OS_MENU_TRANSITION}
-            className="fixed right-2 top-8 z-[10500] w-[min(340px,calc(100vw-16px))] rounded-[18px] border border-white/10 bg-[#1E1E20]/80 p-3.5 shadow-2xl backdrop-blur-2xl select-none sm:right-14"
+            className={cn(
+              "fixed right-2 top-8 z-[10500] w-[min(340px,calc(100vw-16px))] rounded-[18px] p-3.5 select-none sm:right-14",
+              glassEffect({ shape: "none" })
+            )}
           >
             {/* Track row */}
             <div className="flex items-center gap-3">

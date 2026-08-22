@@ -1,0 +1,178 @@
+/* ============================================================================
+   Liquid Glass material system — abhi os
+   ----------------------------------------------------------------------------
+   Web implementation of Apple's iOS 26 / macOS 26 "Liquid Glass" design
+   language (per the `liquid-glass-design` skill): a dynamic material that
+   blurs and saturates whatever is behind it, picks up a light tint from its
+   surroundings, catches specular light along its top edge, and reacts to
+   pointer interaction.
+
+   Skill mapping:
+   - `.glassEffect()`                                   -> `.lg-glass`
+   - `.glassEffect(.regular.tint(c))`                   -> `.lg-glass` + `--lg-tint: c`
+   - `.glassEffect(.regular.interactive())`             -> `.lg-glass` + `.lg-glass-interactive`
+   - shape: `.capsule` / `.rect(cornerRadius:)` / `.circle`
+                                                        -> shape variant in liquid-glass.tsx
+   - `GlassEffectContainer(spacing:)`                   -> `.lg-glass-container` + `--lg-spacing`
+   ============================================================================ */
+
+/* Registered so the values can *transition* (liquid morph of the material
+   itself on hover/press) in browsers that support CSS Houdini properties;
+   elsewhere the state change still applies instantly. */
+@property --lg-brightness {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1.05;
+}
+
+@property --lg-saturate {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 180%;
+}
+
+:root {
+  /* -- Regular variant tokens ------------------------------------------------
+     `--lg-tint` is the per-element hook for `.tint(color)`; everything else is
+     shared by the whole system. */
+  --lg-tint: transparent;
+  --lg-blur: 22px;
+  --lg-fill: rgba(255, 255, 255, 0.07);
+  --lg-sheen-top: rgba(255, 255, 255, 0.11);
+  --lg-sheen-mid: rgba(255, 255, 255, 0.02);
+  --lg-sheen-low: rgba(255, 255, 255, 0.05);
+  --lg-edge-light: rgba(255, 255, 255, 0.22);
+  --lg-edge-light-soft: rgba(255, 255, 255, 0.08);
+  --lg-shadow: 0 14px 34px rgba(0, 0, 0, 0.32), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --lg-shadow-hover: 0 18px 46px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.24);
+  --lg-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --lg-duration: 180ms;
+}
+
+@layer components {
+  /* ── .glassEffect() — regular variant ───────────────────────────────────
+     Applied AFTER layout/shape classes (rounded-*, p-*, …) exactly like the
+     SwiftUI modifier goes after other appearance modifiers. The material
+     carries no shape of its own: the element's border-radius clips the
+     backdrop, the sheen and the edge lights. */
+  .lg-glass {
+    position: relative;
+    border: none;
+    background:
+      linear-gradient(var(--lg-tint), var(--lg-tint)) padding-box,
+      linear-gradient(
+        180deg,
+        var(--lg-sheen-top) 0%,
+        var(--lg-sheen-mid) 32%,
+        rgba(255, 255, 255, 0) 55%,
+        var(--lg-sheen-low) 100%
+      ) padding-box,
+      var(--lg-fill);
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+    backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
+    box-shadow:
+      inset 0 1px 0 0 var(--lg-edge-light),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.05),
+      inset 1px 0 0 0 var(--lg-edge-light-soft),
+      inset -1px 0 0 0 var(--lg-edge-light-soft),
+      var(--lg-shadow);
+  }
+
+  /* Toolbar chrome (menu bar / nav bars): same material, hairline outer
+     shadow instead of the floating-card drop shadow. */
+  .lg-glass-flat {
+    box-shadow:
+      inset 0 1px 0 0 var(--lg-edge-light),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.07),
+      0 1px 0 rgba(255, 255, 255, 0.05),
+      0 10px 26px rgba(0, 0, 0, 0.22);
+  }
+
+  /* Corner radius for the `.rect(cornerRadius:)` shape; set per element via
+     `--lg-radius` (glassRadiusStyle()) to choose the corner size. */
+  .lg-radius-rect {
+    border-radius: var(--lg-radius, 16px);
+  }
+
+  /* ── .interactive() variant ─────────────────────────────────────────────
+     Opt-in ONLY for elements that respond to interaction (buttons,
+     toggleable items) — per the skill's best practices. Reacts to pointer:
+     lifts and brightens on hover, compresses like liquid on press. */
+  .lg-glass-interactive {
+    transition:
+      transform var(--lg-duration) var(--lg-ease),
+      box-shadow var(--lg-duration) var(--lg-ease),
+      background-color var(--lg-duration) var(--lg-ease),
+      -webkit-backdrop-filter var(--lg-duration) var(--lg-ease),
+      backdrop-filter var(--lg-duration) var(--lg-ease),
+      --lg-brightness var(--lg-duration) var(--lg-ease),
+      --lg-saturate var(--lg-duration) var(--lg-ease);
+    will-change: transform;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lg-glass-interactive:hover {
+      --lg-brightness: 1.15;
+      --lg-saturate: 195%;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 0 rgba(255, 255, 255, 0.06),
+        inset 1px 0 0 0 rgba(255, 255, 255, 0.1),
+        inset -1px 0 0 0 rgba(255, 255, 255, 0.1),
+        var(--lg-shadow-hover);
+    }
+  }
+
+  .lg-glass-interactive:active {
+    --lg-brightness: 1.22;
+    --lg-saturate: 205%;
+    transform: scale(0.96);
+    transition-duration: 90ms;
+  }
+
+  /* ── GlassEffectContainer ────────────────────────────────────────────────
+     Wrap EVERY group of sibling glass elements (skill anti-pattern: multiple
+     standalone .glassEffect() views without a container). `isolate` gives the
+     group its own stacking/paint context so backdrops merge cleanly, and
+     `--lg-spacing` records the merge distance for the group. */
+  .lg-glass-container {
+    position: relative;
+    isolation: isolate;
+  }
+}
+
+/* ── Fallbacks (accessibility + capability) ─────────────────────────────── */
+
+/* No backdrop-filter support: fall back to a mostly-solid surface so content
+   stays legible instead of seeing straight through to the wallpaper. */
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .lg-glass {
+    background: rgba(30, 30, 32, 0.88);
+  }
+}
+
+/* Reduced transparency: flatten the material (no blur, stronger fill) while
+   keeping the edge treatment so surfaces still read as one system. */
+@media (prefers-reduced-transparency: reduce) {
+  .lg-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background:
+      linear-gradient(var(--lg-tint), var(--lg-tint)) padding-box,
+      rgba(30, 30, 32, 0.92);
+    --lg-edge-light: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* Reduced motion: the material should not push pixels. */
+@media (prefers-reduced-motion: reduce) {
+  .lg-glass-interactive {
+    transition: none;
+  }
+  .lg-glass-interactive:hover,
+  .lg-glass-interactive:active {
+    transform: none;
+  }
+}
+

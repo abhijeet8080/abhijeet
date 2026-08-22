@@ -28,6 +28,11 @@ import { useSystemStore } from "@/store/systemStore";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { scrollToSection, scrollToTop } from "@/lib/navigation";
 import { playClick } from "@/lib/sounds";
+import { cn } from "@/lib/utils";
+import {
+  glassEffect,
+  GlassEffectContainer,
+} from "@/components/ui/liquid-glass";
 
 /** Grace period before hiding once the pointer leaves the dock/edge-zone — avoids flicker. */
 const HIDE_DELAY_MS = 350;
@@ -81,8 +86,14 @@ const useMagnify = (
   return useSpring(widthSync, { mass: 0.1, stiffness: 220, damping: 14 });
 };
 
+/* .glassEffect() — regular variant, capsule shape (the skill's default). */
 const Tooltip = ({ label }: { label: string }) => (
-  <div className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 rounded-md border border-white/10 bg-[#2C2C2E]/90 px-2.5 py-1 text-[12px] font-medium whitespace-nowrap text-white/90 opacity-0 shadow-lg backdrop-blur-xl transition-opacity duration-150 group-hover:opacity-100 md:block">
+  <div
+    className={cn(
+      "pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 px-2.5 py-1 text-[12px] font-medium whitespace-nowrap text-white/90 opacity-0 transition-opacity duration-150 group-hover:opacity-100 md:block",
+      glassEffect({ shape: "capsule" })
+    )}
+  >
     {label}
   </div>
 );
@@ -370,7 +381,10 @@ export const Dock = () => {
         transition={{ type: "spring", stiffness: 380, damping: 34 }}
         className="fixed bottom-2 left-1/2 z-[600] -translate-x-1/2"
       >
-        <div
+        {/* GlassEffectContainer — one shared glass surface for all sibling
+            dock items (spacing = the group's merge distance). */}
+        <GlassEffectContainer
+          spacing={4}
           onMouseEnter={() => {
             hoverRef.current = true;
             reveal();
@@ -381,7 +395,10 @@ export const Dock = () => {
             mouseX.set(Infinity);
           }}
           onMouseMove={(e) => mouseX.set(e.clientX)}
-          className="flex max-w-[calc(100vw-12px)] items-end gap-[3px] overflow-x-auto rounded-[20px] border border-white/15 bg-white/10 px-1.5 py-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl md:gap-1 md:rounded-[24px]"
+          className={cn(
+            "flex max-w-[calc(100vw-12px)] items-end gap-[3px] overflow-x-auto rounded-[20px] px-1.5 py-1.5 md:gap-1 md:rounded-[24px]",
+            glassEffect({ shape: "none" })
+          )}
         >
           {APPS.map((app) => (
             <DockIcon
@@ -424,7 +441,7 @@ export const Dock = () => {
             iconSize={iconSize}
             onActivate={handleActivate}
           />
-        </div>
+        </GlassEffectContainer>
       </motion.div>
     </>
   );

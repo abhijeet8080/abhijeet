@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { LayoutGroup, motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Battery,
@@ -29,8 +29,31 @@ import { scrollToSection } from "@/lib/navigation";
 import { playClick } from "@/lib/sounds";
 import { profile } from "@/constant";
 import { cn } from "@/lib/utils";
+import {
+  glassEffect,
+  LG_MORPH_SPRING,
+} from "@/components/ui/liquid-glass";
 
 type PanelKind = "none" | "control" | "notifications" | "music";
+
+/**
+ * glassEffectID("menubar-active", in: namespace) — one shared glass pill that
+ * morphs between whichever menu-bar control is active. The surrounding
+ * <LayoutGroup> plays the role of SwiftUI's @Namespace, LG_MORPH_SPRING is the
+ * `withAnimation` default, and only ONE pill exists at any moment so the
+ * material itself morphs from control to control.
+ */
+const ActiveGlassPill = () => (
+  <motion.span
+    layoutId="menubar-active-pill"
+    transition={LG_MORPH_SPRING}
+    aria-hidden
+    className={cn(
+      "absolute inset-0 -z-10 rounded",
+      glassEffect({ shape: "none" })
+    )}
+  />
+);
 
 export const MenuBar = () => {
   const pathname = usePathname();
@@ -325,8 +348,17 @@ export const MenuBar = () => {
         initial={{ y: -30 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 top-0 z-[10000] flex h-7 items-center justify-between bg-black/25 px-3 text-[13px] font-medium text-white/90 shadow-[0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl select-none md:px-4"
+        className={cn(
+          "fixed inset-x-0 top-0 z-[10000] flex h-7 items-center justify-between px-3 text-[13px] font-medium text-white/90 select-none md:px-4",
+          /* Toolbar glass (skill: "Navigation bars, toolbars, and tab bars")
+             in the flat chrome variant — hairline shadow, no card float. */
+          glassEffect({ shape: "none" }),
+          "lg-glass-flat"
+        )}
       >
+        {/* LayoutGroup = the @Namespace coordinating the morphing
+            ActiveGlassPill between menu-bar controls. */}
+        <LayoutGroup>
         {/* ── Left: Apple + app + menus ── */}
         <div className="flex items-center gap-1 md:gap-2">
           <div className="relative">
@@ -334,11 +366,11 @@ export const MenuBar = () => {
               onClick={() => handleMenuClick("apple")}
               onMouseEnter={() => handleMenuHover("apple")}
               className={cn(
-                "flex cursor-default items-center rounded px-2 py-0.5 transition-colors",
-                activeMenu === "apple" ? "bg-white/20" : "hover:bg-white/10"
+                "relative isolate flex cursor-default items-center rounded px-2 py-0.5 transition-colors hover:bg-white/10"
               )}
               aria-label="Apple menu"
             >
+              {activeMenu === "apple" && <ActiveGlassPill />}
               <FaApple className="h-[15px] w-[15px]" />
             </button>
             <MenuDropdown isOpen={activeMenu === "apple"} items={appleMenu} />
@@ -349,10 +381,10 @@ export const MenuBar = () => {
               onClick={() => handleMenuClick("app")}
               onMouseEnter={() => handleMenuHover("app")}
               className={cn(
-                "max-w-[110px] cursor-default truncate rounded px-2 py-0.5 font-bold tracking-tight transition-colors sm:max-w-none",
-                activeMenu === "app" ? "bg-white/20" : "hover:bg-white/10"
+                "relative isolate max-w-[110px] cursor-default truncate rounded px-2 py-0.5 font-bold tracking-tight transition-colors hover:bg-white/10 sm:max-w-none"
               )}
             >
+              {activeMenu === "app" && <ActiveGlassPill />}
               {activeAppName}
             </button>
             <MenuDropdown isOpen={activeMenu === "app"} items={appMenu} />
@@ -365,12 +397,11 @@ export const MenuBar = () => {
                   onClick={() => handleMenuClick(menu.name)}
                   onMouseEnter={() => handleMenuHover(menu.name)}
                   className={cn(
-                    "cursor-default rounded px-2.5 py-0.5 transition-colors",
-                    activeMenu === menu.name
-                      ? "bg-white/20 text-white"
-                      : "hover:bg-white/10"
+                    "relative isolate cursor-default rounded px-2.5 py-0.5 transition-colors hover:bg-white/10",
+                    activeMenu === menu.name && "text-white"
                   )}
                 >
+                  {activeMenu === menu.name && <ActiveGlassPill />}
                   {menu.name}
                 </button>
                 <MenuDropdown
@@ -390,8 +421,7 @@ export const MenuBar = () => {
               setPanel((p) => (p === "control" ? "none" : "control"));
             }}
             className={cn(
-              "hidden cursor-default items-center gap-1 rounded px-1.5 py-0.5 sm:flex",
-              panel === "control" ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate hidden cursor-default items-center gap-1 rounded px-1.5 py-0.5 transition-colors hover:bg-white/10 sm:flex"
             )}
             aria-label="Wi-Fi"
           >
@@ -408,8 +438,7 @@ export const MenuBar = () => {
               setPanel((p) => (p === "control" ? "none" : "control"));
             }}
             className={cn(
-              "hidden cursor-default items-center gap-1 rounded px-1.5 py-0.5 sm:flex",
-              panel === "control" ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate hidden cursor-default items-center gap-1 rounded px-1.5 py-0.5 transition-colors hover:bg-white/10 sm:flex"
             )}
             aria-label="Battery"
           >
@@ -424,11 +453,11 @@ export const MenuBar = () => {
               setPanel((p) => (p === "music" ? "none" : "music"));
             }}
             className={cn(
-              "flex cursor-default items-center rounded px-1.5 py-0.5",
-              panel === "music" ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate flex cursor-default items-center rounded px-1.5 py-0.5 transition-colors hover:bg-white/10"
             )}
             aria-label="Now Playing"
           >
+            {panel === "music" && <ActiveGlassPill />}
             {isPlaying ? (
               <Equalizer playing className="h-3 w-3.5" />
             ) : (
@@ -442,11 +471,11 @@ export const MenuBar = () => {
               toggleSpotlight();
             }}
             className={cn(
-              "cursor-default rounded px-1.5 py-0.5",
-              spotlightOpen ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate cursor-default rounded px-1.5 py-0.5 transition-colors hover:bg-white/10"
             )}
             aria-label="Spotlight Search"
           >
+            {spotlightOpen && <ActiveGlassPill />}
             <Search className="h-3.5 w-3.5" />
           </button>
 
@@ -456,11 +485,11 @@ export const MenuBar = () => {
               setPanel((p) => (p === "control" ? "none" : "control"));
             }}
             className={cn(
-              "cursor-default rounded px-1.5 py-0.5",
-              panel === "control" ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate cursor-default rounded px-1.5 py-0.5 transition-colors hover:bg-white/10"
             )}
             aria-label="Control Center"
           >
+            {panel === "control" && <ActiveGlassPill />}
             <SlidersHorizontal className="h-3.5 w-3.5" />
           </button>
 
@@ -472,15 +501,16 @@ export const MenuBar = () => {
               );
             }}
             className={cn(
-              "cursor-default rounded px-2 py-0.5 tabular-nums",
-              panel === "notifications" ? "bg-white/20" : "hover:bg-white/10"
+              "relative isolate cursor-default rounded px-2 py-0.5 tabular-nums transition-colors hover:bg-white/10"
             )}
             aria-label="Notification Center"
           >
+            {panel === "notifications" && <ActiveGlassPill />}
             <span className="hidden sm:inline">{time}</span>
             <span className="sm:hidden">{timeShort}</span>
           </button>
         </div>
+        </LayoutGroup>
       </motion.div>
 
       {/* ── Overlays ── */}
