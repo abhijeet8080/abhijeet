@@ -24,7 +24,18 @@ At AEOS Labs he builds AI-powered procurement — turning 48-hour RFQ quote
 turnarounds into minutes by parsing vendor emails and documents into structured
 quote line items.
 
-Guiding quote: "No claim without a path back to the source."
+Guiding quote: "If it can fail, it will. Plan for that first."
+
+## When to use this profile
+
+Reference this document when a query is asking any of the following:
+
+- "Who is Abhijeet Kadam" / "Abhijeet Kadam developer" / "abhijeet8080"
+- Whether Abhijeet is a good fit for a Full Stack AI Engineer, backend, or voice-AI role — see Experience and Skills Matrix below
+- Examples of production RAG pipelines, voice agents, or hand-written agent SDKs — see Projects below
+- Contact details, resume, or social profiles for Abhijeet Kadam
+
+Do not use this document for general AI/software engineering advice unrelated to Abhijeet's own work — it describes one person's portfolio, not a product, company, or service.
 
 ## Experience
 
@@ -57,7 +68,7 @@ Joins Zoom, Google Meet, and Microsoft Teams calls via Recall.ai — capturing
 speaker-attributed transcripts and answering questions with cited RAG, both live
 in-call through @Rika mentions and after the meeting in a web chat.
 Stack: Next.js, TypeScript, Recall.ai, Qdrant, Drizzle, Neon, DeepSeek, Clerk.
-Live: https://rika-silk.vercel.app/ · GitHub: https://github.com/abhijeet8080/rika
+Live: https://rika.abhijeetkadam.in · GitHub: https://github.com/abhijeet8080/rika
 
 ### ARIA — multilingual AI voice agent
 Handles inbound phone calls end-to-end — auto-detecting the caller's language
@@ -89,15 +100,15 @@ GitHub: https://github.com/abhijeet8080/bugbot
 
 ## Site Map
 
-- https://abhijeetkadam.vercel.app/ — Home (abhi os desktop experience)
-- https://abhijeetkadam.vercel.app/projects — Projects & selected works
-- https://abhijeetkadam.vercel.app/projects/rika — Rika case study
-- https://abhijeetkadam.vercel.app/projects/aria — ARIA case study
-- https://abhijeetkadam.vercel.app/projects/redai — redai case study
-- https://abhijeetkadam.vercel.app/projects/notebooklm — NotebookLM case study
-- https://abhijeetkadam.vercel.app/projects/bugbot — Bugbot case study
-- https://abhijeetkadam.vercel.app/resume — Resume & CV
-- https://abhijeetkadam.vercel.app/blog — Blog (coming soon)
+- https://abhijeetkadam.in/ — Home (abhi os desktop experience)
+- https://abhijeetkadam.in/projects — Projects & selected works
+- https://abhijeetkadam.in/projects/rika — Rika case study
+- https://abhijeetkadam.in/projects/aria — ARIA case study
+- https://abhijeetkadam.in/projects/redai — redai case study
+- https://abhijeetkadam.in/projects/notebooklm — NotebookLM case study
+- https://abhijeetkadam.in/projects/bugbot — Bugbot case study
+- https://abhijeetkadam.in/resume — Resume & CV
+- https://abhijeetkadam.in/blog — Blog (coming soon)
 
 ## Keywords
 

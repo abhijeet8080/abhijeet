@@ -22,9 +22,9 @@ export const ContactCard = () => {
       <div className="relative z-10 flex flex-col gap-10 md:gap-12">
         {/* Top Part: Big Heading + Step Form */}
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white font-bold tracking-wide select-none drop-shadow-md">
+          <h3 className="font-heading text-4xl sm:text-5xl md:text-6xl text-white font-bold tracking-wide select-none drop-shadow-md">
             let&apos;s talk
-          </h2>
+          </h3>
 
           <div className="w-full md:w-auto md:min-w-85">
             <StepForm />

@@ -60,6 +60,11 @@ export function constructMetadata({
       types: {
         // Discovery hint for LLM agents (llms.txt convention)
         "text/plain": `${SITE_SEO.siteUrl}/llms.txt`,
+        // Per-page Markdown sibling — same content negotiated via
+        // `Accept: text/markdown` at the canonical URL (see proxy.ts),
+        // also reachable directly at this `.md` URL for crawlers that
+        // don't send an Accept header.
+        "text/markdown": `${canonicalUrl}.md`,
       },
     },
     openGraph: {
@@ -175,6 +180,16 @@ export function generateWebSiteJsonLd() {
       },
       {
         "@type": "WebPage",
+        name: "About",
+        url: `${SITE_SEO.siteUrl}/about`,
+      },
+      {
+        "@type": "WebPage",
+        name: "Contact",
+        url: `${SITE_SEO.siteUrl}/contact`,
+      },
+      {
+        "@type": "WebPage",
         name: "Resume & Curriculum Vitae",
         url: `${SITE_SEO.siteUrl}/resume`,
       },
@@ -194,6 +209,8 @@ export function generateSiteNavigationJsonLd() {
   const pages = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
     { name: "Blog", path: "/blog" },
     { name: "Resume", path: "/resume" },
   ];
@@ -216,6 +233,19 @@ export function generateOrganizationJsonLd() {
     name: SITE_SEO.siteName,
     url: SITE_SEO.siteUrl,
     logo: `${SITE_SEO.siteUrl}/images/thumbnail.png`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: SITE_SEO.author.email,
+      contactType: "customer support",
+      areaServed: "IN",
+      availableLanguage: ["English", "Hindi"],
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: profile.curr_location.city,
+      addressRegion: profile.curr_location.state,
+      addressCountry: "IN",
+    },
     sameAs: Array.from(SITE_SEO.socialLinks),
   };
 }

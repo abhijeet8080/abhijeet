@@ -41,15 +41,17 @@ export const ExperienceItem = ({ item, index }: ExperienceItemProps) => {
       {/* Header Section: Company, Role & Date */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-800/60 pb-4">
         <div className="flex flex-col gap-1">
-          <a
-            href={item.companySite}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-tight text-white transition-colors hover:text-accent sm:text-2xl"
-          >
-            <span>{item.company}</span>
-            <ExternalLink className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 text-accent shrink-0" />
-          </a>
+          <h3 className="contents">
+            <a
+              href={item.companySite}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-heading text-xl font-bold uppercase tracking-tight text-white transition-colors hover:text-accent sm:text-2xl"
+            >
+              <span>{item.company}</span>
+              <ExternalLink className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100 text-accent shrink-0" />
+            </a>
+          </h3>
 
           <p className="font-mono text-xs sm:text-sm font-semibold text-accent tracking-wide">
             {item.role}

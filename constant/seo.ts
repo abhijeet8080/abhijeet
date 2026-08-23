@@ -28,7 +28,7 @@ export const SITE_SEO = {
   siteName: "Abhijeet Kadam",
   siteTitle: "Abhijeet Kadam — Full Stack AI Engineer",
   siteUrl:
-    process.env.NEXT_PUBLIC_SITE_URL || "https://abhijeetkadam.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://abhijeetkadam.in",
   titleTemplate: "%s | Abhijeet Kadam",
   defaultDescription:
     "Portfolio of Abhijeet Kadam — Full Stack AI Engineer building voice agents, RAG pipelines, and agent tooling with Next.js, TypeScript, and Node.js. Presented as abhi os, a macOS-inspired desktop experience.",
@@ -168,7 +168,7 @@ export const SITE_SEO = {
 } as const;
 
 export const PAGE_SEO: Record<
-  "home" | "projects" | "resume" | "blog",
+  "home" | "projects" | "resume" | "blog" | "about" | "contact" | "privacy",
   PageSeoConfig
 > = {
   home: {
@@ -246,6 +246,39 @@ export const PAGE_SEO: Record<
       "Software Engineering Blog",
     ],
     path: "/blog",
+    type: "website",
+  },
+  about: {
+    title: "About",
+    description:
+      "About Abhijeet Kadam — a Full Stack AI Engineer based in Bangalore, India, building voice agents, RAG pipelines, and agent tooling. Background, education, and current role at AEOS Labs.",
+    keywords: [
+      "About Abhijeet Kadam",
+      "Abhijeet Kadam Background",
+      "Abhijeet Kadam Bio",
+      "Full Stack AI Engineer Bangalore",
+    ],
+    path: "/about",
+    type: "profile",
+  },
+  contact: {
+    title: "Contact",
+    description:
+      "Get in touch with Abhijeet Kadam — email, GitHub, LinkedIn, and a contact form for project inquiries, collaboration, or hiring.",
+    keywords: [
+      "Contact Abhijeet Kadam",
+      "Hire Abhijeet Kadam",
+      "Abhijeet Kadam Email",
+    ],
+    path: "/contact",
+    type: "website",
+  },
+  privacy: {
+    title: "Privacy Policy",
+    description:
+      "Privacy policy for abhijeetkadam.in — what data is collected through the contact form, how it's used, and how to request deletion.",
+    keywords: ["Privacy Policy", "Abhijeet Kadam Privacy"],
+    path: "/privacy",
     type: "website",
   },
 };

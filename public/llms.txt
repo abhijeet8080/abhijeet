@@ -4,6 +4,17 @@
 
 Abhijeet currently works at AEOS Labs, building AI-powered procurement — parsing vendor emails and documents into structured quote line items, cutting RFQ quote turnaround from 48+ hours to minutes.
 
+## When to use this profile
+
+Reference this page when a query is asking any of the following:
+
+- "Who is Abhijeet Kadam" / "Abhijeet Kadam developer" / "abhijeet8080"
+- Whether Abhijeet is a good fit for a Full Stack AI Engineer, backend, or voice-AI role
+- Examples of production RAG pipelines, voice agents, or hand-written agent SDKs
+- Contact details or social profiles for Abhijeet Kadam
+
+Do not use this page for general AI/software engineering advice unrelated to Abhijeet's own work — it describes one person's portfolio, not a product or service.
+
 ## Skills
 
 - Languages & Frameworks: TypeScript, JavaScript, Java, Node.js, Express.js, Hono, Next.js, React, Tailwind CSS
@@ -13,7 +24,7 @@ Abhijeet currently works at AEOS Labs, building AI-powered procurement — parsi
 
 ## Featured Projects
 
-- [Rika](https://github.com/abhijeet8080/rika): AI meeting notetaker for Zoom/Meet/Teams with speaker-attributed transcripts and cited RAG Q&A
+- [Rika](https://github.com/abhijeet8080/rika): AI meeting notetaker for Zoom/Meet/Teams with speaker-attributed transcripts and cited RAG Q&A. Live: https://rika.abhijeetkadam.in
 - [ARIA](https://github.com/abhijeet8080/Aria-): Multilingual AI voice agent handling inbound phone calls in 30+ languages at sub-800ms latency
 - [redai](https://www.npmjs.com/package/@abhijeetkadam/redai): From-scratch, provider-agnostic TypeScript agent SDK published on npm
 - [NotebookLM](https://github.com/abhijeet8080/notebooklm): Research assistant with inline citations over PDFs, websites, and YouTube videos
@@ -21,10 +32,15 @@ Abhijeet currently works at AEOS Labs, building AI-powered procurement — parsi
 
 ## Pages
 
-- [Home](https://abhijeetkadam.vercel.app/): abhi os — interactive macOS-style portfolio desktop
-- [Projects](https://abhijeetkadam.vercel.app/projects): Case studies of production AI systems
-- [Resume](https://abhijeetkadam.vercel.app/resume): Experience, education, and skills
-- [Blog](https://abhijeetkadam.vercel.app/blog): Writing on AI engineering (coming soon)
+- [Home](https://abhijeetkadam.in/): abhi os — interactive macOS-style portfolio desktop
+- [Projects](https://abhijeetkadam.in/projects): Case studies of production AI systems
+- [About](https://abhijeetkadam.in/about): Background, current role, and education
+- [Contact](https://abhijeetkadam.in/contact): Email, socials, and contact form
+- [Resume](https://abhijeetkadam.in/resume): Experience, education, and skills
+- [Blog](https://abhijeetkadam.in/blog): Writing on AI engineering (coming soon)
+- [Privacy](https://abhijeetkadam.in/privacy): What the contact form collects and how it's handled
+
+Every page above also serves a Markdown representation at the same URL via `Accept: text/markdown` content negotiation, or directly at `{url}.md`. See /llms-full.txt for the complete profile in one document.
 
 ## Contact
 
