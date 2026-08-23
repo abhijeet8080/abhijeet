@@ -20,4 +20,20 @@ describe("sitemap", () => {
   it("has no duplicate URLs", () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
+
+  it("excludes /blog, which is noIndex until it has real posts", () => {
+    expect(urls).not.toContain(`${SITE_SEO.siteUrl}/blog`);
+  });
+
+  it("uses a fixed lastModified per entry instead of the build timestamp", () => {
+    // Regression guard: `new Date()` at build time stamps every URL
+    // "changed today" on every deploy, which is a lie search engines
+    // learn to discount. Every entry must resolve to a real, stable date.
+    for (const entry of sitemap()) {
+      expect(entry.lastModified).toBeTruthy();
+      expect(new Date(entry.lastModified as string).toString()).not.toBe(
+        "Invalid Date"
+      );
+    }
+  });
 });

@@ -4,7 +4,13 @@ import { ArrowLeft } from "lucide-react";
 import { constructMetadata } from "@/lib/seo";
 import { PAGE_SEO } from "@/constant/seo";
 
-export const metadata: Metadata = constructMetadata(PAGE_SEO.blog);
+export const metadata: Metadata = constructMetadata({
+  ...PAGE_SEO.blog,
+  // Empty placeholder page — indexing it now would put a near-content
+  // page under the domain and dilute topical authority. Drop this once
+  // real posts exist.
+  noIndex: true,
+});
 
 export default function BlogPage() {
   return (
