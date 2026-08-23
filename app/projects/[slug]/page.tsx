@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react";
 import { SectionGradiendBg } from "@/components/mics/bg/SectionGradiendBg";
 import { TechBadge } from "@/components/common";
+import { TracingBeam } from "@/components/ui/tracing-beam";
 import { constructMetadata, generateBreadcrumbJsonLd } from "@/lib/seo";
 import { CASE_STUDIES, getCaseStudy } from "@/constant/caseStudies";
 import { SITE_SEO } from "@/constant/seo";
@@ -201,18 +202,20 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ── Architecture flow ── */}
       <section className="mt-14">
         <SectionLabel>How It Works</SectionLabel>
-        <ol className="relative ml-2 flex flex-col gap-6 border-l border-border pl-6">
-          {study.architecture.map((step, i) => (
-            <li key={i} className="relative">
-              <span className="absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-full border border-accent/40 bg-background font-mono text-[11px] font-bold text-accent">
-                {i + 1}
-              </span>
-              <p className="max-w-3xl font-mono text-xs leading-relaxed text-foreground/75 sm:text-sm">
-                {step}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <TracingBeam className="pl-6 md:pl-20">
+          <ol className="flex flex-col gap-6">
+            {study.architecture.map((step, i) => (
+              <li key={i} className="relative flex items-start gap-3">
+                <span className="mt-0.5 shrink-0 font-mono text-[11px] font-bold text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="max-w-3xl font-mono text-xs leading-relaxed text-foreground/75 sm:text-sm">
+                  {step}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </TracingBeam>
       </section>
 
       {/* ── Stack ── */}
