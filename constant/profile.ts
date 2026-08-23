@@ -71,10 +71,10 @@ export const profile: Profile = {
   },
 
   about: [
-    "I'm a full stack AI engineer who ships production systems — voice agents that answer phone calls in 30+ languages, RAG pipelines that cite their sources, and an agent SDK written from scratch and published on npm.",
-    "I like owning the hard parts: real-time audio pipelines, webhook-driven syncs, background workers, and the unglamorous reliability work — circuit breakers, retries, dead-letter queues.",
-    "At AEOS Labs I build AI-powered procurement — turning 48-hour RFQ quote turnarounds into minutes by parsing vendor emails and documents into structured quote line items.",
-    "Still learning. Still shipping. Still convinced a well-placed console.log is a legitimate debugging strategy.",
+    "I came into software sideways. An Electronics and Telecommunications degree left me more curious about the code running on the hardware than the hardware itself, so I taught myself the rest by building things instead of waiting for a course to explain them.",
+    "What pulls me in is the boundary where my code has to trust something it doesn't control: a phone carrier, an email server, a model that might just make things up. Getting that boundary to behave predictably is most of what I find interesting about this job.",
+    "I'd rather spend a weekend breaking something on my own project than get it right in a tutorial. That instinct is basically my whole resume.",
+    "Still convinced a well-placed console.log beats a debugger, and that the best compliment a system can get is nobody ever had to think about it.",
   ],
 
   hero_titles: {
