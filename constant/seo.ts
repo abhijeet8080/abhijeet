@@ -26,12 +26,12 @@ const githubSocial = socials.find((s) => s.name === "GitHub");
 
 export const SITE_SEO = {
   siteName: "Abhijeet Kadam",
-  siteTitle: "Abhijeet Kadam — Full Stack AI Engineer",
+  siteTitle: "Abhijeet Kadam",
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL || "https://abhijeetkadam.in",
   titleTemplate: "%s | Abhijeet Kadam",
   defaultDescription:
-    "Portfolio of Abhijeet Kadam — Full Stack AI Engineer building voice agents, RAG pipelines, and agent tooling with Next.js, TypeScript, and Node.js. Presented as abhi os, a macOS-inspired desktop experience.",
+    "Portfolio of Abhijeet Kadam — building voice agents, RAG pipelines, and agent tooling with Next.js, TypeScript, and Node.js. Presented as abhi os, a macOS-inspired desktop experience.",
   defaultKeywords: [
     // Identity & brand
     "Abhijeet Kadam",
@@ -174,7 +174,7 @@ export const PAGE_SEO: Record<
   PageSeoConfig
 > = {
   home: {
-    title: "Abhijeet Kadam — Full Stack AI Engineer",
+    title: "Abhijeet Kadam",
     description:
       "Welcome to abhi os — the portfolio of Abhijeet Kadam. Explore production AI systems: voice agents, RAG pipelines, agent SDKs, and full-stack applications.",
     keywords: [

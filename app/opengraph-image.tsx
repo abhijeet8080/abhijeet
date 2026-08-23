@@ -52,10 +52,7 @@ export default function OgImage() {
           <span style={{ fontSize: 84, fontWeight: 800, letterSpacing: -2, lineHeight: 1.05 }}>
             Abhijeet Kadam
           </span>
-          <span style={{ fontSize: 38, color: "#38bdf8", fontWeight: 600 }}>
-            Full Stack AI Engineer
-          </span>
-          <span style={{ fontSize: 26, color: "#a1a1aa", maxWidth: 900 }}>
+          <span style={{ fontSize: 28, color: "#a1a1aa", maxWidth: 900 }}>
             Voice agents, RAG pipelines & agent tooling — production AI systems with Next.js, TypeScript and Node.js.
           </span>
         </div>
