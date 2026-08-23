@@ -49,18 +49,27 @@ export default function ContactPage() {
         </p>
 
         <section className="mt-10 flex flex-col gap-3">
-          {socials.map((s) => (
-            <a
-              key={s.name}
-              href={s.url}
-              target={s.name === "Email" ? undefined : "_blank"}
-              rel={s.name === "Email" ? undefined : "noopener noreferrer"}
-              className="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-background/60 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-primary transition-colors hover:border-card-border-hover hover:bg-card-hover"
-            >
-              {s.name}: {s.handle}
-              <ArrowUpRight className="h-3.5 w-3.5 text-accent" />
-            </a>
-          ))}
+          {socials.map((s) =>
+            s.url ? (
+              <a
+                key={s.name}
+                href={s.url}
+                target={s.name === "Email" ? undefined : "_blank"}
+                rel={s.name === "Email" ? undefined : "noopener noreferrer"}
+                className="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-background/60 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-primary transition-colors hover:border-card-border-hover hover:bg-card-hover"
+              >
+                {s.name}: {s.handle}
+                <ArrowUpRight className="h-3.5 w-3.5 text-accent" />
+              </a>
+            ) : (
+              <span
+                key={s.name}
+                className="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-background/60 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+              >
+                {s.name}: {s.handle}
+              </span>
+            )
+          )}
         </section>
 
         <p className="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">

@@ -16,17 +16,27 @@ export const SocialColumn = () => {
         SOCIAL
       </span>
       <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
-        {socials.map((social) => (
-          <a
-            key={social.name}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground hover:underline transition-colors uppercase"
-          >
-            {social.name}
-          </a>
-        ))}
+        {socials.map((social) =>
+          social.url ? (
+            <a
+              key={social.name}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground hover:underline transition-colors uppercase"
+            >
+              {social.name}
+            </a>
+          ) : (
+            <span
+              key={social.name}
+              title={social.handle}
+              className="uppercase text-muted-foreground/70"
+            >
+              {social.name}
+            </span>
+          )
+        )}
       </div>
     </div>
   );

@@ -130,7 +130,7 @@ export const TerminalWindow = () => {
         print("Tip: scroll to the Work section for the full cards.");
         break;
       case "socials":
-        socials.forEach((s) => print(`${s.name.padEnd(10)} ${s.url}`));
+        socials.forEach((s) => print(`${s.name.padEnd(10)} ${s.url || s.handle}`));
         break;
       case "contact":
       case "email":

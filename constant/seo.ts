@@ -150,7 +150,9 @@ export const SITE_SEO = {
   publisher: "Abhijeet Kadam",
   defaultOgImage: "/images/me.jpg",
   twitterHandle: `@${githubSocial?.handle || "abhijeet8080"}`,
-  socialLinks: socials.map((s) => s.url),
+  socialLinks: socials
+    .map((s) => s.url)
+    .filter((url): url is string => Boolean(url)),
   locale: "en_US",
   themeColor: "#000000",
   robotsDefault: {
