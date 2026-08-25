@@ -118,8 +118,28 @@ export const DesktopWallpaper = () => {
     }
   };
 
+  // Gradient wallpapers render through a WebGL shader, which can't paint until
+  // its bundle has downloaded, parsed, and compiled. Until then the canvas is
+  // transparent — so without this, the desktop is pure black for however long
+  // that takes (seconds on a slow device). A plain CSS gradient built from the
+  // wallpaper's own stops paints on the very first frame with zero JS, and the
+  // shader then fades in over it. The PreLoader only covers the first visit in
+  // a session, so this is what keeps repeat visits from flashing black.
+  const staticBase =
+    wallpaper.type === "gradient" && wallpaper.colors?.length
+      ? `linear-gradient(135deg, ${wallpaper.colors.join(", ")})`
+      : undefined;
+
   return (
     <div className="pointer-events-none fixed inset-0 -z-50 h-full w-full overflow-hidden bg-black">
+      {staticBase && (
+        <div
+          className="absolute inset-0"
+          style={{ background: staticBase }}
+          aria-hidden
+        />
+      )}
+
       <AnimatePresence mode="wait">
         <motion.div
           key={wallpaper.id}
