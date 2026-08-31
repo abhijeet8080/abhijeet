@@ -18,6 +18,8 @@ export default function ProjectsPage() {
       <div className="absolute inset-0 bg-black/55 backdrop-blur-md" aria-hidden />
 
       <div className="relative mx-auto w-full max-w-5xl px-6 pb-28 pt-16 md:px-12">
+      <h1 className="sr-only">{PAGE_SEO.projects.title}</h1>
+
       <Link
         href="/"
         className="mb-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"

@@ -1,6 +1,6 @@
-# Abhijeet Kadam — Full Stack AI Engineer
+# Abhijeet Kadam
 
-> Portfolio of Abhijeet Kadam, a Full Stack AI Engineer based in Bangalore, India, building production AI systems: voice agents, RAG pipelines, agent SDKs, and full-stack applications. The site itself is "abhi os", a macOS-inspired desktop experience built with Next.js, TypeScript, and Tailwind CSS.
+> Portfolio of Abhijeet Kadam, based in Bangalore, India, building production AI systems: voice agents, RAG pipelines, agent SDKs, and full-stack applications. The site itself is "abhi os", a macOS-inspired desktop experience built with Next.js, TypeScript, and Tailwind CSS.
 
 Abhijeet currently works at AEOS Labs, building AI-powered procurement — parsing vendor emails and documents into structured quote line items, cutting RFQ quote turnaround from 48+ hours to minutes.
 
