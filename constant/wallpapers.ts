@@ -27,7 +27,7 @@ export interface Wallpaper {
   available: boolean;
 }
 
-export const DEFAULT_WALLPAPER_ID = "sequoia-glow";
+export const DEFAULT_WALLPAPER_ID = "golden-hour-village";
 
 export const DEFAULT_ACCENT = "#F5A524";
 export const DEFAULT_OS_ACCENT = "#FF9F0A";
@@ -226,6 +226,24 @@ export const WALLPAPERS: Wallpaper[] = [
     src: "/wallpapers/chainsaw-man.jpg",
     accent: "hsl(8 85% 55%)",
     osAccent: "#FF6961",
+    available: true,
+  },
+  {
+    id: "golden-hour-village",
+    name: "Golden Hour Village",
+    type: "image",
+    src: "/wallpapers/chatgpt-wallpaper-1.png",
+    accent: "hsl(38 90% 55%)",
+    osAccent: "#FF9F0A",
+    available: true,
+  },
+  {
+    id: "morning-orchard",
+    name: "Morning Orchard",
+    type: "image",
+    src: "/wallpapers/chatgpt-wallpaper-2.png",
+    accent: "hsl(85 55% 50%)",
+    osAccent: "#A4D13F",
     available: true,
   },
   {
